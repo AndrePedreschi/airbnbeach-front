@@ -128,7 +128,7 @@ export function SearchBar({ filteredData }) {
         }
 
 
-        axios.get(`/produtos/search?${url}`).then((response) => {
+        axios.get(`http://3.128.201.181:8080/produtos/search?${url}`).then((response) => {
             console.log(response);
 
             filteredData(response)

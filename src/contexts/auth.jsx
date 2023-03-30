@@ -6,7 +6,6 @@ const AuthContext = createContext()
 
 export function AuthProvider(props) {
   const [urlPath, setUrlPath] = useState(window.location.pathname);
-  const [urlBase, setUrlBase] = useState('http://3.128.201.181:8080');
   const authLocalStorage = localStorage.getItem('auth')
   const userLocalStorage = JSON.parse(localStorage.getItem('user'))
 
@@ -95,7 +94,7 @@ export function AuthProvider(props) {
 
   return (
 
-    <AuthContext.Provider value={{ auth, saveToken, deleteToken, user, userLogout, saveUser, urlPath, setUrlPath, urlBase }}>
+    <AuthContext.Provider value={{ auth, saveToken, deleteToken, user, userLogout, saveUser, urlPath, setUrlPath }}>
       {props.children}
     </AuthContext.Provider>
 

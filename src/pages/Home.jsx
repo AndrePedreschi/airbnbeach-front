@@ -13,7 +13,6 @@ export function Home() {
 
 
     useEffect(() => {
-        //18.117.145.11
         axios.get(`http://3.128.201.181:8080/categorias`).then(
             (response) => {
                 //console.log(response);
