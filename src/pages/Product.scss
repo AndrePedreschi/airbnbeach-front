@@ -12,9 +12,12 @@
         align-items: center;
         justify-content: space-between;
         padding: 0 2.5rem;
-        height: 3.75rem;
+        min-height: 3.75rem;
+        height: auto;
+        //height: 3.75rem;
 
         .headerText {
+            margin: 0.5rem 0;
             color: var(--grey-light);
         }
     }

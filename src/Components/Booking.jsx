@@ -14,7 +14,8 @@ import { useAuth } from "../contexts/auth";
 
 export function Booking() {
     const productData = useOutletContext()
-    const { user, auth } = useAuth();
+
+    const { user, auth, urlBase } = useAuth();
     const navigate = useNavigate();
     const [city, setCity] = useState('')
     const [datePicker, setDatePicker] = useState(false);
@@ -24,15 +25,22 @@ export function Booking() {
     const [endDate, setEndDate] = useState('__/__/____');
     const litepickerRef = useRef(null);
 
+    //const [lockedDates, setlockedDates] = useState(productData.lockedDates);
+
+    useEffect(() => {
+        if (productData !== undefined) {
+            setTimeout(() => {
+                createDatepicker()
+            }, 1);
+        }
+    }, [productData])
+
+
     function createDatepicker() {
         if (datePicker) {
             litepickerRef.current.destroy()
         }
 
-        const lockedDates = [
-            '2023-03-01', '2023-03-05', '2023-03-08',
-            '2023-03-12', '2023-03-15', '2023-03-19',
-        ];
 
         litepickerRef.current = new Litepicker({
             element: document.getElementById('datepicker'),
@@ -49,7 +57,11 @@ export function Booking() {
             minDate: new Date(),
 
             lockDaysFilter: (date1, date2, pickedDates) => {
-                return lockedDates.includes(date1.format('YYYY-MM-DD'));
+                if(productData.lockedDates && productData.lockedDates !== undefined){
+                    return productData.lockedDates.includes(date1.format('YYYY-MM-DD'));
+                }else{
+                    return
+                }
             },
 
             setup: (picker) => {
@@ -94,14 +106,7 @@ export function Booking() {
         }, 2);
     }, [windowWidth])
 
-    //useffect usado para criar o calendário
-    useEffect(() => {
-        createDatepicker()
-    }, [])
-
-
-
-
+  
     function cleanForm() {
         setCity('');
         litepickerRef.current.clearSelection()
@@ -134,15 +139,18 @@ export function Booking() {
 
         if (!validateForm()) return;
 
-        let url = 'http://3.128.201.181:8080/reservas';
+
+
+
+        let url = `${urlBase}/reservas`;
         let data = {
-            //city: city,
-            dataInicial: startDate,
-            dataFinal: endDate,
+            dataInicial: startDate.split('/').reverse().join('-'),
+            dataFinal: endDate.split('/').reverse().join('-'),
             hora: arrivalHour,
-            produto: null,
-            cliente: null
+            produto: { id: productData.id, },
+            usuario: { id: user.id, }
         }
+
 
         axios.defaults.headers.post['Authorization'] = `Bearer ${auth}`;
 
@@ -163,8 +171,6 @@ export function Booking() {
         }, (error) => {
             console.log(error);
             if (error.status == 404) return toast.error('Infelizmente, a reserva não pode ser completada. Por favor, tente novamente mais tarde.');
-            //if (error.status == 404) return toast.error('Destino não encontrada');
-            //if (error.status == 404) return toast.error('Erro ao preencher o formuário. Recarregue a página e tente novamente.');
             if (error.code === 'ERR_NETWORK') return toast.error('Verifique a sua conexão com a internet.');
         });
 
@@ -261,17 +267,17 @@ export function Booking() {
                     <h1 className='h1 '>Detalhe da reserva</h1>
 
                     <div className='bookingDetailsContainer'>
-                        <img src={productData.img[0]} className='bookingImage' />
+                        <img src={productData.imagens[0].url} className='bookingImage' />
                         <section className='bookingDetailsSection'>
                             <div className='titleText'>
                                 <p className='h4'>Hotel</p>
-                                <p className='h1'>{productData.title}</p>
-                                <StarRate rate={productData.stars} />
+                                <p className='h1'>{productData.nome}</p>
+                                <StarRate rate={productData.estrelas} />
                             </div>
 
                             <div className="locationText">
                                 <MapPin className="mapPinStyle" size={22} color="#545776" weight="fill" />
-                                <p className="text-normal">{productData.location.address}</p>
+                                <p className="text-normal">{productData.localizacao.endereco}</p>
                             </div>
 
                             <div className='checkDates'>

@@ -1,0 +1,326 @@
+.productRegisterContainer {
+    //height: 100vh;
+
+    width: 100%;
+    animation-duration: 0.5s;
+    transition-timing-function: ease-in;
+    animation-fill-mode: both;
+    animation-name: fadeIn;
+    transition: 5s;
+    background-color: var(--white-background);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    .headerSection {
+        background-color: var(--coral-light);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2.5rem;
+        height: 3.75rem;
+        position: fixed;
+        width: 100%;
+        z-index: 2;
+
+        .headerText {
+            color: var(--grey-light);
+        }
+    }
+
+    .adminFormSection {
+        padding: 5rem 2.5rem 0 2.5rem;
+        max-width: 75rem;
+        width: 100%;
+        /* >h1 {
+            padding: 0 2.5rem;
+        } */
+
+        .propertFormRegister {
+            padding: 1rem 0 5rem 0;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-auto-rows: auto;
+            grid-column-gap: 1rem;
+            grid-row-gap: 1rem;
+
+            align-items: center;
+            max-width: 70rem;
+            width: 100%;
+
+
+            .inputs {
+                width: 100%;
+                padding: 0.25rem 0;
+                label {
+                    //padding: 1rem;
+                    display: block;
+                    height: 1.375rem;
+                }
+
+                input,
+                textarea {
+                    padding: 0 0.875rem;
+                    border: 0;
+                    display: block;
+                    width: 100%;
+                    height: 2.5rem;
+                    background: #FFFFFF;
+                    border-radius: 5px;
+                    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+
+                    &:focus {
+                        outline: transparent;
+                        box-shadow: 0 0 0 2px var(--green-light);
+                    }
+                }
+
+                textarea {
+                    padding: 0.875rem;
+                    width: 100%;
+                }
+
+                .selectCategoriaStyle {
+                    padding: 0 1rem;
+                    height: 2.5rem;
+                    width: 100%;
+                    border-radius: 5px;
+                    border: 1px solid #4646462f;
+                    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+                    outline: none;
+
+                }
+
+            }
+
+
+            .tituloDescricao {
+                width: 100%;
+                grid-column-start: 1;
+                grid-column-end: 3;
+                //grid-row-start: 4;
+                //grid-row-end: 5;
+
+            }
+
+            .descricao {
+                width: 100%;
+                grid-column-start: 1;
+                grid-column-end: 3;
+                //grid-row-start: 5;
+                //grid-row-end: 6;
+
+                .inputText {
+                    width: 100%;
+                    height: 100px;
+                    resize: vertical;
+                    font-family: "Roboto", sans-serif;
+                }
+            }
+
+
+
+            .subTitulos {
+                grid-column-start: 1;
+                grid-column-end: 3;
+            }
+
+            .dragAndDrop {
+                grid-column-start: 1;
+                grid-column-end: 3;
+                padding: 1rem;
+                border-radius: 8px;
+                box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+
+
+
+
+            }
+
+            .politicasContainer {
+                white-space: nowrap;
+                padding: 1rem;
+                background: #FFFFFF;
+                border-radius: 5px;
+                box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+                grid-column-start: 1;
+                grid-column-end: 3;
+
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-auto-rows: auto;
+                grid-column-gap: 1rem;
+                grid-row-gap: 1rem;
+
+                .politicasDescricao {
+                    width: 100%;
+
+                    label {
+                        margin-top: 0.5rem;
+                    }
+
+                    .inputText {
+                        width: 100%;
+                        min-height: 200px;
+                        //height: auto;
+                        resize: vertical;
+                        font-family: "Roboto", sans-serif;
+                    }
+
+                }
+            }
+
+            .uploadImageSection {
+                background: #FFFFFF;
+                border-radius: 5px;
+                box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+                padding: 1rem;
+                grid-column-start: 1;
+                grid-column-end: 3;
+
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+
+                .addImageSection {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    .addFild {
+                        width: 2.5rem;
+                        height: 2.5rem;
+                        background-color: var(--green-light);
+                        border: none;
+                        border-radius: 4px;
+                        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+                        cursor: pointer;
+                        transition: background-color 0.2s;
+        
+                        &:hover {
+                            background-color: var(--green-medium);
+                        }
+
+                        .plusIcon{
+                            font-size: 30px;
+                       
+                        }
+                    }
+                }
+            }
+
+            .errorMsg {
+                color: #FF0000;
+                align-self: flex-end;
+                margin-top: 0.1rem;
+                animation-duration: 0.8s;
+                transition-timing-function: ease-in;
+                animation-fill-mode: both;
+                animation-name: fadeIn;
+            }
+
+            .errorMsgSpacing {
+                color: #00000000;
+                align-self: flex-end;
+                margin-top: 0.1rem;
+            }
+
+
+            .btnAdmin {
+                grid-column-start: 1;
+                grid-column-end: 3;
+                justify-self: center;
+                margin: 1.25rem 0 1rem 0;
+                max-width: 13rem;
+                width: 100%;
+                height: 2.5rem;
+                padding: 0.5rem 2.25rem;
+                border: none;
+                border-radius: 5px;
+                background-color: var(--green-light);
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+
+                color: var(--grey-light);
+                font-style: normal;
+                font-weight: 700;
+                font-size: 1rem; //16px
+                line-height: 1.25rem; //20px
+
+                cursor: pointer;
+                transition: background-color 0.2s;
+
+                &:hover {
+                    background-color: var(--green-medium);
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .productRegisterContainer {
+        .adminFormSection {
+
+            .propertFormRegister {
+                grid-template-columns: 1fr;
+
+                .tituloDescricao{
+                    grid-column-start: 1;
+                    grid-column-end: 2;
+                }
+                .descricao {
+
+                    grid-column-start: 1;
+                    grid-column-end: 2;
+                    //grid-row-start: 7;
+                    //grid-row-end: 8;
+
+                    .inputText {
+                        width: 100%;
+                        height: 100px;
+                    }
+
+                }
+
+                .subTitulos {
+                    grid-column-start: 1;
+                    grid-column-end: 2;
+                }
+
+                .dragAndDrop {
+                    grid-column-start: 1;
+                    grid-column-end: 2;
+                }
+
+
+                .politicasContainer {
+                    grid-column-start: 1;
+                    grid-column-end: 2;
+                    grid-template-columns: 1fr;
+
+                    .politicasDescricao {
+                        width: 100%;
+
+                        .inputText {
+                            width: 100%;
+                            height: 200px;
+                        }
+                    }
+                }
+
+                .uploadImageSection {
+                    grid-column-start: 1;
+                    grid-column-end: 2;
+                }
+
+
+                .btnAdmin {
+                    grid-column-start: 1;
+                    grid-column-end: 2;
+                }
+            }
+        }
+    }
+}

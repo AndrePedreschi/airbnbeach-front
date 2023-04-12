@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "swiper/css/bundle";
 import "./Carousel.scss";
 
@@ -8,8 +8,9 @@ import { FreeMode, Navigation, Autoplay, Pagination, Keyboard, Mousewheel, Zoom,
 
 export function Carousel(props) {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    const [imgs, setImages] = useState(props.imgs);
-
+    const [imgs, setImages] = useState(props.imgs.map((item) => (
+        item.url
+    )));
 
 
     return (

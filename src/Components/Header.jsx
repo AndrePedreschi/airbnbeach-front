@@ -1,16 +1,57 @@
-import { useNavigate } from "react-router-dom";
-import { X } from 'phosphor-react'
+import { Link, useNavigate } from "react-router-dom";
+import { DotsThreeOutlineVertical, CaretUp, CalendarCheck, SignOut, PlusCircle } from 'phosphor-react'
 import "./Header.scss";
 import { useAuth } from "../contexts/auth";
 import Swal from 'sweetalert2'
+import { useEffect, useRef, useState } from 'react';
+
 
 
 export function Header() {
   const { auth, user, userLogout, urlPath, setUrlPath } = useAuth();
   const navigate = useNavigate();
-  
-  function logout() {
+  const [isNovaDivVisible, setIsNovaDivVisible] = useState(false);
+  const novaDivRef = useRef(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleWindowResize);
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  });
+  useEffect(() => {
+    const novaDiv = novaDivRef.current;
+    if (windowWidth < 414) {
+      novaDiv.style.opacity = 0;
+      novaDiv.style.animationDuration = '0.5s'
+      novaDiv.style.transitionTimingFunction = 'ease-in';
+      novaDiv.style.animationFillMode = 'both';
+      novaDiv.style.animationName = 'fadeOut';
+
+      setTimeout(() => {
+        novaDiv.style.display = 'none'
+      }, 500);
+
+      novaDiv.addEventListener('transitionend', function handleTransitionEnd() {
+        novaDiv.removeEventListener('transitionend', handleTransitionEnd);
+      }, 1)
+
+      setIsNovaDivVisible(false)
+    } else {
+      return
+    }
+  }, [windowWidth])
+
+
+
+
+
+  function logout() {
     Swal.fire({
       title: 'Deseja realmente sair?',
       width: '360',
@@ -48,6 +89,54 @@ export function Header() {
     }
   }
 
+  useEffect(() => {
+    const novaDiv = novaDivRef.current;
+
+    if (isNovaDivVisible) {
+      novaDiv.style.opacity = 1;
+      novaDiv.style.display = 'block'
+      novaDiv.style.pointerEvents = 'all';
+      novaDiv.style.transitionDelay = '0s';
+      novaDiv.style.animationDuration = '0.5s'
+      novaDiv.style.transitionTimingFunction = 'ease-in';
+      novaDiv.style.animationFillMode = 'both';
+      novaDiv.style.animationName = 'fadeIn';
+
+    } else {
+      setTimeout(() => {
+        novaDiv.style.opacity = 0;
+        novaDiv.style.animationDuration = '0.5s'
+        novaDiv.style.transitionTimingFunction = 'ease-in';
+        novaDiv.style.animationFillMode = 'both';
+        novaDiv.style.animationName = 'fadeOut';
+
+        setTimeout(() => {
+          novaDiv.style.display = 'none'
+        }, 500);
+
+        novaDiv.addEventListener('transitionend', function handleTransitionEnd() {
+          novaDiv.removeEventListener('transitionend', handleTransitionEnd);
+        }, 1)
+      });
+    }
+  }, [isNovaDivVisible]);
+
+  function toggleDiv() {
+    const novaDiv = novaDivRef.current;
+    const icon = document.getElementById("novaDivIcon");
+    const iconClass = isNovaDivVisible ? "" : "";
+    icon.setAttribute("class", `btnMenuHeader icon ${iconClass}`);
+    icon.setAttribute("aria-expanded", `${isNovaDivVisible}`);
+
+    setIsNovaDivVisible(!isNovaDivVisible);
+
+    novaDiv.addEventListener('transitionend', function handleTransitionEnd() {
+      if (!isNovaDivVisible) {
+        novaDiv.removeEventListener('transitionend', handleTransitionEnd);
+      }
+    });
+  }
+
 
   return (
     <section className="headerFull">
@@ -58,7 +147,7 @@ export function Header() {
 
       <div className="asideHolder" type={urlPath}>
 
-        {(auth && user !== "" )&& (
+        {(auth && user !== "") && (
           <div className="loggedIn">
             <p className="profilePicture">{user.nome[0]}{user.sobrenome[0]}</p>
 
@@ -66,7 +155,14 @@ export function Header() {
               <p className="">Olá,</p>
               <p className="greetingAndNameGreen">{user.nome} {user.sobrenome}</p>
             </div>
-            <X onClick={logout} alt="Sair" weight="bold" className="btnLoggout" />
+            <DotsThreeOutlineVertical
+              id="novaDivIcon"
+              size={36}
+              onClick={toggleDiv}
+              color="var(--coral-light)"
+              className="btnMenuHeader"
+              weight="fill"
+            />
           </div>
         )}
 
@@ -75,14 +171,20 @@ export function Header() {
             {urlPath !== '/createUser' &&
               <button className='btnHeader' onClick={() => changeScreen('createUser')}>Criar conta</button>
             }
-
             {urlPath !== '/login' &&
               <button className='btnHeader' onClick={() => changeScreen('login')}>Iniciar sessão</button>
             }
           </div>
-
         }
 
+      </div>
+      <div ref={novaDivRef} className="nova-div">
+        <div className="linksMenuHeaderHolder">
+          <Link to={`/administrador`} className="text-normal estiloIcone"><PlusCircle size={32} color="white" /> Cadastrar local</Link>
+          <Link to={`/reservas`} className="text-normal estiloIcone"> <CalendarCheck size={32} color="white" /> Ver reservas</Link>
+          <Link onClick={() => { logout(); toggleDiv() }} className="text-normal estiloIcone"><SignOut size={32} color="white" /> Sair</Link>
+          <Link className="text-normal estiloIcone" onClick={toggleDiv}> <CaretUp size={32} color="white" /> Fechar menu</Link>
+        </div>
       </div>
     </section>
   );

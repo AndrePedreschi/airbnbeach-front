@@ -8,7 +8,7 @@ import { useAuth } from "../contexts/auth";
 
 export function Form({ type }) {
 
-    const { saveToken, saveUser, user } = useAuth();
+    const { saveToken, saveUser, user, urlBase } = useAuth();
     const navigate = useNavigate();
 
     const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[!+¨:=/@|#\$%\^&\*])(?=.*[0-9]).{8,}$");
@@ -47,9 +47,9 @@ export function Form({ type }) {
 
         let url;
         if (type === 'login') {
-            url = 'http://3.128.201.181:8080/auth/login'
+            url = `${urlBase}/auth/login`
         } else {
-            url = 'http://3.128.201.181:8080/auth/register'
+            url = `${urlBase}/auth/register`
         }
 
         let data;
@@ -70,15 +70,15 @@ export function Form({ type }) {
         axios.post(url, data).then((response) => {
 
             if (type === 'login') {
-                console.log(response);
+
                 saveToken(response.data.token)
 
-                axios.get(`http://3.128.201.181:8080/auth/search?email=${email}`)
+                axios.get(`${urlBase}/auth/search?email=${email}`)
                     .then(
                         (response) => {
-                            console.log(response);
+
                             saveUser(response.data)
-                            saveUser(...user, {role:adimin})
+                            //saveUser(...user, {role:adimin})
                             toast.success("Usuário logado com sucesso")
                             navigate('/home')
                         }, (error) => {
@@ -90,22 +90,17 @@ export function Form({ type }) {
             }
 
         }, (error) => {
-            console.log(error);
 
             if (type === 'login') {
-
                 //if (error.status == 404) return setStatus({ type: 'loginError', message: 'Usuário não encontrado' });
                 //if (error.status == 404) return setStatus({ type: 'loginError', message: 'Usuário ou senha não encontrados.' });
-               
                 if (error.request.status == 403) return toast.error('Usuário não encontrado');
                 if (error.status == 404) return toast.error('Usuário ou senha não encontrados');
                 if (error.code === 'ERR_NETWORK') return toast.error('Infelizmente não foi possivel logar. Por favor, tente novamente mais tarde.');
-
             } else {
                 //if (error.status == 403) return toast.error('Usuário não encontrado');
                 if (error.status == 404) return toast.error('Erro ao preencher o formuário. Recarregue a página e tente novamente.');
                 if (error.code === 'ERR_NETWORK') return toast.error('Infelizmente não foi possivel registrar. Por favor, tente novamente mais tarde.');
-
             }
         });
 

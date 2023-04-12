@@ -87,9 +87,16 @@
                     padding: 0.2rem 0.5rem;
                     transition: 0.2s;
 
+                    
+
                     .copyButton {
                         transition: 0.2s;
-
+                        transition: transform 0.4s ease-in-out;
+                        
+                        &:active{
+                            //transition: , transform 1s;
+                            transform: rotate(360deg) ;
+                        }
                         &:hover {
                             color: rgb(211, 74, 74);
                         }
@@ -210,6 +217,22 @@
                 grid-column-end: 2;
                 grid-row-start: 1;
                 grid-row-end: 3;
+            }
+        }
+
+        .desktopStyle2 {
+            height: 24.125rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-auto-rows: 396px;
+            grid-column-gap: 0.5rem;
+            grid-row-gap: 0.5rem;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 8px;
             }
         }
 
@@ -473,7 +496,7 @@
         .imgsSection {
             padding: 0;
 
-            .desktopStyle {
+            .desktopStyle, .desktopStyle2 {
                 display: none;
             }
 

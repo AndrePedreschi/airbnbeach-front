@@ -7,12 +7,12 @@ export function ProtectedRoute({
     redirectPath = '/home',
     msg,
     type = 'swal',
-    role = 'user',
+    role = 'USER',
     children,
 }) {
     const { auth, user } = useAuth();
 
-    if (role === 'user') {
+    if (role === 'USER') {
         if (!auth) {
             {
                 type === 'toast' ? toast.error(msg) :
@@ -32,7 +32,7 @@ export function ProtectedRoute({
     }
 
 
-    if (role === 'admin') {
+    if (role === 'ADMIN') {
         if (!auth || user.role !== 'administrador') {
             {
                 type === 'toast' ? toast.error(msg) :

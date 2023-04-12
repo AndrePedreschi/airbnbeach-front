@@ -10,11 +10,61 @@
     align-items: center;
     gap: 0.5rem;
     z-index: 4;
-
     animation-duration: 0.5s;
     transition-timing-function: ease-in;
     animation-fill-mode: both;
     animation-name: fadeIn;
+
+    .headerFull.novaDivVisible {
+        height: calc(100% - 5rem);
+        margin-top: -5rem;
+    }
+
+    .nova-div {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--green-light);
+        border: none;
+        padding: .675rem;
+        height: 3.5rem;
+        z-index: 1;
+        width: 100%;
+        opacity: 0;
+        -webkit-box-shadow: inset 0px 2px 10px -4px rgba(0, 0, 0, 0.55);
+        -moz-box-shadow: inset 0px 2px 10px -4px rgba(0, 0, 0, 0.55);
+        box-shadow: inset 0px 2px 10px -4px rgba(0, 0, 0, 0.55);
+        transition: opacity 0.5s ease-in-out, padding-top 0.5s ease-in-out;
+
+        .linksMenuHeaderHolder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            gap: 2rem;
+
+            .estiloIcone{
+                display: flex;
+                align-items: center;
+                gap: 0.3rem;
+
+                transition: all 0.3s;
+                cursor: pointer;
+
+                color: white;
+                text-decoration: none;
+                
+
+                &:hover {
+                    transform: scale(1.05);
+                    transition: all 0.3s;
+                }
+
+            }
+        }
+    }
 
     .logoSection {
         display: flex;
@@ -32,7 +82,7 @@
             cursor: pointer;
             background-position: center;
             background-repeat: no-repeat;
-            background-size:  8rem;
+            background-size: 8rem;
             object-fit: contain;
         }
 
@@ -50,17 +100,9 @@
 
     .asideHolder {
         display: flex;
-       // gap: 0.625rem;
-        //min-width: fit-content;
-        //max-width: 50%;
         max-width: 26.625rem !important;
         width: 100%;
-        //justify-content: space-between;
         justify-content: flex-end;
-
-        /* &[type='/home'] {
-            max-width: 26.625rem;
-        } */
 
         &[type='/login'] {
             max-width: 13rem;
@@ -69,8 +111,6 @@
         &[type='/createUser'] {
             max-width: 13rem;
         }
-
-
 
         .profilePicture {
             height: 2.5rem;
@@ -90,7 +130,6 @@
             display: flex;
             gap: 0.4rem;
             align-items: center;
-   
 
             .greetingAndName {
                 //padding-left: 0.625rem;
@@ -121,9 +160,24 @@
                     transition: all 0.3s;
                 }
             }
+
+            .btnMenuHeader {
+                cursor: pointer;
+
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.1);
+                    transition: all 0.3s;
+
+                    svg {
+                        color: blue;
+                        background-color: white;
+                    }
+                }
+            }
         }
 
-        .btnContainer{
+        .btnContainer {
             display: flex;
             justify-content: flex-end;
             gap: 0.625rem;
@@ -133,25 +187,25 @@
                 max-width: 13rem;
                 width: 100%;
                 padding: 0 0.25rem;
-    
+
                 height: 2.5rem;
                 border: 1px solid var(--green-light);
                 border-radius: 5px;
                 background-color: transparent;
                 box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
-    
+
                 text-decoration: none;
                 text-align: center;
-    
+
                 color: var(--green-light);
                 font-style: normal;
                 font-weight: 700;
                 font-size: 1rem; //16px
                 line-height: 1.25rem; //20px
-    
+
                 cursor: pointer;
                 transition: background-color 0.2s;
-    
+
                 &:hover {
                     background-color: var(--green-light);
                     color: #ffffff;
@@ -164,12 +218,21 @@
     }
 }
 
+.rotate {
+    transition: transform 0.5s all; 
+    transform: rotate(180deg);
+  }
+  
 
 @media (max-width: 820px) {
     .logoTagline {
         display: none;
     }
+    .headerFull .nova-div .linksMenuHeaderHolder{
+        gap: 1rem
+    }
 }
+
 @media (max-width: 440px) {
     .headerFull {
         padding: 0 0.75rem;
@@ -192,5 +255,25 @@
                 display: none;
             }
         }
+    }
+}
+
+
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 414px) {
+    .nova-div {
+        display: none;
     }
 }

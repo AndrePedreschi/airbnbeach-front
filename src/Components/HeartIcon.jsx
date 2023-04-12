@@ -6,7 +6,7 @@ import axios from "axios";
 
 //posso receber por props o estado inicial do coração e seta-lo em fav ao usar o componente
 export function HeartIcon({ id, favorite = false, border }) {
-    const { auth } = useAuth();
+    const { auth, urlBase } = useAuth();
     const [check, setCheck] = useState(favorite);
 
 
@@ -17,7 +17,7 @@ export function HeartIcon({ id, favorite = false, border }) {
             toast.error('Você precisa estar logado para favoritar os itens')
         } else {
             
-            let url=`https://www.airbabeach/favoritos`;
+            let url=`${urlBase}/favoritos`;
             
             let data = {
                 user: '',

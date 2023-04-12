@@ -1,6 +1,5 @@
 [
     {
-        "id": 1,
         "favorito": false,
         "estrelas": 4.5,
         "avaliacao": 9.0,
@@ -50,7 +49,6 @@
         "reservas": []
     },
     {
-        "id": 2,
         "favorito": true,
         "estrelas": 3.0,
         "avaliacao": 7.5,
@@ -95,7 +93,6 @@
         }
     },
     {
-        "id": 3,
         "titulo": "Hotel Bahia Bonita",
         "estrelas": 4.5,
         "favorito": true,
@@ -140,7 +137,6 @@
         }
     },
     {
-        "id": 4,
         "favorito": false,
         "estrelas": 4.5,
         "avaliacao": 9.0,
@@ -187,7 +183,6 @@
         "reservas": []
     },
     {
-        "id": 5,
         "favorito": true,
         "estrelas": 4.8,
         "avaliacao": 9.6,
@@ -232,7 +227,6 @@
         "reservas": []
     },
     {
-        "id": 6,
         "favorito": false,
         "estrelas": 4.2,
         "avaliacao": 8.4,
@@ -277,7 +271,6 @@
         "reservas": []
     },
     {
-        "id": 7,
         "favorito": false,
         "estrelas": 4.0,
         "avaliacao": 8.5,
@@ -324,7 +317,6 @@
         "reservas": []
     },
     {
-        "id": 8,
         "favorito": true,
         "estrelas": 5,
         "avaliacao": 10,
@@ -372,7 +364,6 @@
         "reservas": []
     },
     {
-        "id": 9,
         "favorito": false,
         "estrelas": 5.0,
         "avaliacao": 9.5,
@@ -417,7 +408,6 @@
         "reservas": []
     },
     {
-        "id": 10,
         "favorito": false,
         "estrelas": 3.5,
         "avaliacao": 8.0,
@@ -464,7 +454,6 @@
         "reservas": []
     },
     {
-        "id": 11,
         "favorito": true,
         "estrelas": 5.0,
         "avaliacao": 9.5,
@@ -514,7 +503,6 @@
         "reservas": []
     },
     {
-        "id": 12,
         "favorito": true,
         "estrelas": 5.0,
         "avaliacao": 10.0,
@@ -561,7 +549,6 @@
         "reservas": []
     },
     {
-        "id": 13,
         "favorito": false,
         "estrelas": 4.0,
         "avaliacao": 6.5,
@@ -608,7 +595,6 @@
         "reservas": []
     },
     {
-        "id": 14,
         "favorito": true,
         "estrelas": 4.8,
         "avaliacao": 9.6,
@@ -655,7 +641,6 @@
         "reservas": []
     },
     {
-        "id": 15,
         "favorito": false,
         "estrelas": 4.0,
         "avaliacao": 8.5,
@@ -702,7 +687,6 @@
         "reservas": []
     },
     {
-        "id": 16,
         "favorito": true,
         "estrelas": 3.5,
         "avaliacao": 8.0,
@@ -749,7 +733,6 @@
         "reservas": []
     },
     {
-        "id": 17,
         "favorito": true,
         "estrelas": 4.8,
         "avaliacao": 9.6,
@@ -796,7 +779,6 @@
         "reservas": []
     },
     {
-        "id": 18,
         "favorito": false,
         "estrelas": 4.2,
         "avaliacao": 8.7,
@@ -842,7 +824,6 @@
         "reservas": []
     },
     {
-        "id": 19,
         "favorito": false,
         "estrelas": 4.0,
         "avaliacao": 8.5,
@@ -889,7 +870,6 @@
         "reservas": []
     },
     {
-        "id": 20,
         "favorito": true,
         "estrelas": 4.0,
         "avaliacao": 8.5,

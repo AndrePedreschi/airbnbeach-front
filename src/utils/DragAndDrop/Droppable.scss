@@ -1,0 +1,25 @@
+.droppable:nth-child(1) {
+  min-height: 50px;
+  padding: 20px 10px;
+  border: 1px dotted rgba(0, 0, 0, 0.35);
+  border-radius: 5px;
+  list-style-type: none;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+}
+
+.droppable:nth-child(2) {
+  min-height: 100px;
+  padding: 20px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 5px;
+  list-style-type: none;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.4);
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+}

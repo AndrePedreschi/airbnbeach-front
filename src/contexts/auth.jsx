@@ -6,6 +6,10 @@ const AuthContext = createContext()
 
 export function AuthProvider(props) {
   const [urlPath, setUrlPath] = useState(window.location.pathname);
+  const [urlBase, setUrlBase] = useState('http://18.117.145.11:8080');
+  //const [urlBase, setUrlBase] = useState('http://18.191.176.59:8080');
+  //const [urlBase, setUrlBase] = useState('https://airbnbeach-back.onrender.com');
+  
   const authLocalStorage = localStorage.getItem('auth')
   const userLocalStorage = JSON.parse(localStorage.getItem('user'))
 
@@ -94,7 +98,7 @@ export function AuthProvider(props) {
 
   return (
 
-    <AuthContext.Provider value={{ auth, saveToken, deleteToken, user, userLogout, saveUser, urlPath, setUrlPath }}>
+    <AuthContext.Provider value={{ auth, saveToken, deleteToken, user, userLogout, saveUser, urlPath, setUrlPath, urlBase }}>
       {props.children}
     </AuthContext.Provider>
 

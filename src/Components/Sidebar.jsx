@@ -1,6 +1,6 @@
 import "./Sidebar.scss";
 import { useState, useEffect } from "react";
-import { FacebookLogo, LinkedinLogo, TwitterLogo, InstagramLogo, X } from 'phosphor-react'
+import { FacebookLogo, LinkedinLogo, TwitterLogo, InstagramLogo, X , DotsThreeOutlineVertical , CaretUp, CalendarCheck, SignOut, PlusCircle} from 'phosphor-react'
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/auth";
 import Swal from 'sweetalert2'
@@ -27,7 +27,7 @@ export function Sidebar() {
       setAnimation("none");
     }
 
-    setTimeout(()=>{setUrlPath('')},1)
+    setTimeout(() => { setUrlPath('') }, 1)
   };
 
   function logout() {
@@ -35,7 +35,7 @@ export function Sidebar() {
       title: 'Deseja realmente sair?',
       width: '360',
       color: '#545776',
-      icon:'question',
+      icon: 'question',
       focusCancel: true,
       showCancelButton: true,
       confirmButtonText: 'Sim',
@@ -65,7 +65,7 @@ export function Sidebar() {
         <nav className="sidebarNav1">
           <X size={32} onClick={toggleSidebar} color="white" weight="bold" className="btnFechar" />
 
-          {(auth && user)&&
+          {(auth && user) &&
             <div className="loggedIn">
               <p className="profilePicture">{user.nome[0]}{user.sobrenome[0]}</p>
 
@@ -73,6 +73,22 @@ export function Sidebar() {
                 <p className="greeting">Olá,</p>
                 <p className="greetingAndNameCoral">{user.nome} {user.sobrenome}</p>
               </div>
+
+              <div className="linksMenuHeaderHolder">
+                <div className="itensMenuHeader">
+                  <Link to={`/administrador`} className="text-normal">Cadastrar local</Link>
+                  <PlusCircle size={32} color="var(--grey-darkest)" />
+                </div>
+                <div className="itensMenuHeader">
+                  <Link to={`/reservas`} className="text-normal">Ver reservas</Link>
+                  <CalendarCheck size={32} color="var(--grey-darkest)" />
+                </div>
+                <div className="itensMenuHeader" onClick={logout}>
+                  <Link className="text-normal">Sair</Link>
+                  <SignOut size={32} color="var(--grey-darkest)" />
+                </div>
+              </div>
+
 
               <p className="loggoutText" onClick={logout} >Deseja <a href="#" className="loggoutLink">encerrar a sessão</a>?</p>
             </div>

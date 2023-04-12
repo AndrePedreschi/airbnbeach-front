@@ -44,6 +44,7 @@ import {
 
 export function ProductDetail() {
     const productData = useOutletContext();
+    const [caracteristicas, setCaracteristicas] = useState(productData.caracteristicas.map((item) => item.icone));
     const [modal, setModal] = useState(false);
     const [share, setShare] = useState(false);
     const [shareUrl, setShareUrl] = useState('');
@@ -52,43 +53,56 @@ export function ProductDetail() {
     const litepickerRef = useRef(null);
 
 
+    useEffect(() => {
+        if (productData !== undefined) {
+            setTimeout(() => {
+                createDatepicker()
+            }, 1);
+        }
+    }, [productData])
+
+
     function createDatepicker() {
         if (datePicker) {
             litepickerRef.current.destroy()
         }
+        if (productData !== undefined) {
 
-        const lockedDates = [
-            '2023-03-01', '2023-03-05', '2023-03-08',
-            '2023-03-12', '2023-03-15', '2023-03-19',
-        ];
 
-        litepickerRef.current = new Litepicker({
-            element: document.getElementById('datepicker'),
-            numberOfMonths: 2,
-            numberOfColumns: 2,
-            //mobileFriendly: true,
-            //splitView: true,
-            selectForward: true,
-            //singleMode: false,
-            singleMode: true,
-            lang: "pt-BR",
-            format: "DD MMM",
-            autoApply: true,
-            autoClose: true,
-            tooltipText: { "one": "dia", "other": "dias" },
-            inlineMode: true,
-            //minDate:'03/15/2023',
+            litepickerRef.current = new Litepicker({
+                element: document.getElementById('datepicker'),
+                numberOfMonths: 2,
+                numberOfColumns: 2,
+                //mobileFriendly: true,
+                //splitView: true,
+                selectForward: true,
+                //singleMode: false,
+                singleMode: true,
+                lang: "pt-BR",
+                format: "DD MMM",
+                autoApply: true,
+                autoClose: true,
+                tooltipText: { "one": "dia", "other": "dias" },
+                inlineMode: true,
+                //minDate:'03/15/2023',
 
-            lockDaysFilter: (date1, date2, pickedDates) => {
-                return lockedDates.includes(date1.format('YYYY-MM-DD'));
-            },
 
-            setup: (picker) => {
-                picker.on('render', (ui) => {
-                    setDatePicker(true)
-                });
-            },
-        });
+                lockDaysFilter: (date1, date2, pickedDates) => {
+                    if (productData.lockedDates && productData.lockedDates !== undefined) {
+                        return productData.lockedDates.includes(date1.format('YYYY-MM-DD'));
+                    } else {
+                        return
+                    }
+                },
+
+                setup: (picker) => {
+                    picker.on('render', (ui) => {
+                        setDatePicker(true)
+                    });
+                },
+            });
+
+        }
     }
     useEffect(() => {
         const handleWindowResize = () => {
@@ -113,9 +127,11 @@ export function ProductDetail() {
     //useffect usado para criar o calendário
     useEffect(() => {
         setShareUrl(window.location.href)
-        setTimeout(() => {
+
+
+        /* setTimeout(() => {
             createDatepicker()
-        }, 1);
+        }, 1); */
     }, [])
 
 
@@ -125,7 +141,7 @@ export function ProductDetail() {
             {modal &&
                 <div className="carouselContainer" >
                     <div className="controle" onClick={() => setModal(false)}></div>
-                    <Carousel imgs={productData.img} />
+                    <Carousel imgs={productData.imagens} />
                     <X size={32} className='closeIcon' type='modal' color="#ffffff" weight="bold" onClick={() => setModal(false)} />
 
                 </div>
@@ -134,21 +150,21 @@ export function ProductDetail() {
             <section className="locationSection">
                 <div className="locationText">
                     <MapPin className="mapPinStyle" size={20} color="#545776" weight="fill" />
-                    <p className="text-normal">{productData.location.address}, à {productData.location.distance}m do centro</p>
+                    <p className="text-normal">{productData.localizacao.endereco}, à {productData.localizacao.distancia}m do centro</p>
                 </div>
 
                 <div className="locationGrade">
                     <div className="gradeRating">
-                        <p className='text-small gradeText'>{gradeStatus(productData.grade)}</p>
-                        <StarRate rate={productData.stars} />
+                        <p className='text-small gradeText'>{gradeStatus(productData.avaliacao)}</p>
+                        <StarRate rate={productData.estrelas} />
 
                     </div>
-                    <div className='grade'>{productData.grade.toFixed(1)}</div>
+                    <div className='grade'>{productData.avaliacao.toFixed(1)}</div>
                 </div>
             </section>
 
             <section className="shareSection">
-                <HeartIcon className='heartIconStyle' id={productData.id} border={true} favorite={productData.favorite} />
+                <HeartIcon className='heartIconStyle' id={productData.id} border={true} favorite={productData.favorito} />
                 <ShareNetwork size={24} color="#000000" className='shareButton' onClick={() => setShare(true)} />
 
                 {share &&
@@ -179,26 +195,26 @@ export function ProductDetail() {
             </section>
 
             <section className="imgsSection">
-                <div className="desktopStyle">
-                    <img className="img0" src={productData.img[0]} />
-                    <img className="img1" src={productData.img[1]} />
-                    <img className="img2" src={productData.img[2]} />
-                    <img className="img3" src={productData.img[3]} />
-                    <img className="img4" src={productData.img[4]} />
+                <div className={productData.imagens.length < 5 ? "desktopStyle2": "desktopStyle"}>
+                    {productData.imagens[0] && <img className="img0" src={productData.imagens[0].url} />}
+                    {productData.imagens[1] && <img className="img1" src={productData.imagens[1].url} />}
+                    {productData.imagens[2] && <img className="img2" src={productData.imagens[2].url} />}
+                    {productData.imagens[3] && <img className="img3" src={productData.imagens[3].url} />}
+                    {productData.imagens[4] && <img className="img4" src={productData.imagens[4].url} />}
                 </div>
 
-                <div className="seeMoreStyle">
+                <div className="seeMoreStyle" style={productData.imagens.length < 5 ? { color: 'black' } : { color: '#ffffff' }}>
                     <a onClick={() => setModal(!modal)}>Ver mais</a>
                 </div>
 
                 <div className='carouselComponent'>
-                    <Carousel imgs={productData.img} />
+                    <Carousel imgs={productData.imagens} />
                 </div>
             </section>
 
             <section className="descriptionSection">
-                <h1 className=".h1 descriptionTitle">{productData.description.title}</h1>
-                {breakLines(productData.description.text).map((itens, index) => (
+                <h1 className=".h1 descriptionTitle">{productData.descricao.titulo}</h1>
+                {breakLines(productData.descricao.texto).map((itens, index) => (
                     <p key={index} className='text-normal'>{itens}</p>
                 ))}
             </section>
@@ -206,21 +222,22 @@ export function ProductDetail() {
             <section className="diferentialSection">
                 <h1 className="h1">O que esse lugar oferece?</h1>
                 <hr />
+
                 <div className="diferentialItens">
-                    {productData.differential.includes('wi-fi') && <p className="iconsText text-normal"><WifiHigh size={20} color="#383b58" /> - Wi-Fi</p>}
-                    {productData.differential.includes('pool') && <div className="iconsText text-normal"><p className='poolIcon'></p> - Piscina</div>}
-                    {productData.differential.includes('pets') && <p className="iconsText text-normal"><PawPrint size={20} color="#383b58" weight="fill" /> - Pet friendly</p>}
-                    {productData.differential.includes('tv') && <p className="iconsText text-normal"><Television size={20} color="#383b58" /> - Televisão</p>}
-                    {productData.differential.includes('kitchen') && <p className="iconsText text-normal"><CookingPot size={20} color="#383b58" /> - Cozinha</p>}
-                    {productData.differential.includes('parking') && <p className="iconsText text-normal"><Car size={20} color="#383b58" /> - Estacionamento</p>}
-                    {productData.differential.includes('jacuzzi') && <p className="iconsText text-normal"><Bathtub size={20} color="#383b58" /> - Jacuzzi</p>}
-                    {productData.differential.includes('air-conditioning') && <p className="iconsText text-normal"><Wind size={20} color="#383b58" /> - Ar condicionado</p>}
+                    {caracteristicas.includes('wi-fi') && <p className="iconsText text-normal"><WifiHigh size={20} color="#383b58" /> - Wi-Fi</p>}
+                    {caracteristicas.includes('pool') && <div className="iconsText text-normal"><p className='poolIcon'></p> - Piscina</div>}
+                    {caracteristicas.includes('pets') && <p className="iconsText text-normal"><PawPrint size={20} color="#383b58" weight="fill" /> - Pet friendly</p>}
+                    {caracteristicas.includes('tv') && <p className="iconsText text-normal"><Television size={20} color="#383b58" /> - Televisão</p>}
+                    {caracteristicas.includes('kitchen') && <p className="iconsText text-normal"><CookingPot size={20} color="#383b58" /> - Cozinha</p>}
+                    {caracteristicas.includes('parking') && <p className="iconsText text-normal"><Car size={20} color="#383b58" /> - Estacionamento</p>}
+                    {caracteristicas.includes('jacuzzi') && <p className="iconsText text-normal"><Bathtub size={20} color="#383b58" /> - Jacuzzi</p>}
+                    {caracteristicas.includes('air-conditioning') && <p className="iconsText text-normal"><Wind size={20} color="#383b58" /> - Ar condicionado</p>}
                 </div>
             </section>
 
             <section className="mapSection">
                 <h1 className="h1">Localização</h1>
-                <Map location={productData.location.location} downtown={productData.location.downtown} address={productData.location.address} />
+                <Map location={JSON.parse(productData.localizacao.coordenadas)} downtown={JSON.parse(productData.localizacao.centro)} address={productData.localizacao.endereco} />
             </section>
 
             <section className="availabilitySection">

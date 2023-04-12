@@ -2,14 +2,14 @@ import './SearchBar.scss'
 import { toast } from 'react-toastify';
 import axios from "axios";
 import { useState, useRef, useEffect } from "react";
-//import { Link, useNavigate } from "react-router-dom";
 import { MapPin, Calendar, X } from 'phosphor-react'
 import Litepicker from 'litepicker';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-
+import { useAuth } from "../contexts/auth";
 
 export function SearchBar({ filteredData }) {
+    const { auth, urlBase } = useAuth();
     const [city, setCity] = useState('');
     const [date, setDate] = useState('');
     const litepickerRef = useRef(null);
@@ -24,8 +24,8 @@ export function SearchBar({ filteredData }) {
 
         litepickerRef.current = new Litepicker({
             element: document.getElementById('datepicker'),
-            numberOfMonths: windowWidth < 641? 1:2,
-            numberOfColumns: windowWidth < 641?1:2,
+            numberOfMonths: windowWidth < 641 ? 1 : 2,
+            numberOfColumns: windowWidth < 641 ? 1 : 2,
             selectForward: true,
             singleMode: false,
             lang: "pt-BR",
@@ -36,6 +36,7 @@ export function SearchBar({ filteredData }) {
             buttonText: {
                 apply: 'Aplicar', cancel: 'Cancelar',
             },
+            minDate: new Date(),
 
             setup: (picker) => {
                 picker.on('render', (ui) => {
@@ -44,7 +45,7 @@ export function SearchBar({ filteredData }) {
             },
         });
     }
-    useEffect(() => { 
+    useEffect(() => {
         const handleWindowResize = () => {
             setWindowWidth(window.innerWidth);
         };
@@ -70,19 +71,25 @@ export function SearchBar({ filteredData }) {
         createDatepicker()
 
         //Puxando as cidades
-        axios.get('http://3.128.201.181:8080/cidades').then((response) => {
-            setArrayCidades([...new Set(response.data.map((item) => item.nome))])
+        axios.get(`${urlBase}/cidades`).then((response) => {
+            let arrayRequest = []
+            response.data.forEach(item => {
+                if(item.nome !== null && !arrayRequest.includes(item.nome)){
+                    arrayRequest.push(item.nome)
+                }else{
+                    return
+                }
+            });
+            setArrayCidades(arrayRequest)
+
+            //setArrayCidades([...new Set(  response.data.map((item) => {item.nome}) )])
+            //setArrayCidades([...new Set(  arrayRequest.map((item) => {item}) )])
+
+
         }, (error) => {
             console.log(error.code);
         });
     }, []);
-
-    /* useEffect(() => {
-        console.log(arrayCidades);
-    }, [arrayCidades]) */
-
-
-
 
     function cleanForm() {
         setCity('');
@@ -116,22 +123,26 @@ export function SearchBar({ filteredData }) {
 
         if ((city !== undefined & city !== null && city.length > 1) && (startDate !== '' && endDate !== '')) {
 
-            url = `dataInicial=${startDate}&dataFinal=${endDate}&cidade=${city}`
+            //url = `dataInicial=${startDate}&dataFinal=${endDate}&cidade=${city}`
+            url = `/search?dataInicial=${startDate}&dataFinal=${endDate}&cidade=${city}`
 
         } else if (startDate !== '' && endDate !== '') {
 
-            url = `dataInicial=${startDate}&dataFinal=${endDate}`
+            //url = `dataInicial=${startDate}&dataFinal=${endDate}`
+            //url = `/datas?dataInicial=${startDate}&dataFinal=${endDate}`
+            url = `/datasDisponiveis?dataInicial=${startDate}&dataFinal=${endDate}`
 
         } else if (city !== undefined && city !== null && city.length > 1) {
 
-            url = `cidade=${city}`
+            //url = `cidade=${city}`
+            url = `/cidade?nomeCidade=${city}`
         }
 
 
-        axios.get(`http://3.128.201.181:8080/produtos/search?${url}`).then((response) => {
+        axios.get(`${urlBase}/produtos${url}`).then((response) => {
             console.log(response);
 
-            filteredData(response)
+            filteredData(response.data)
             toast.success("Próximo destino econtrado!")
         }, (error) => {
             //console.log(error.response.status);
@@ -155,17 +166,6 @@ export function SearchBar({ filteredData }) {
                     <label htmlFor="city" >
                         <MapPin size={20} color="#54577689" weight="fill" className='mapIcon' />
                     </label>
-
-                    {/* <input
-                        className="text-small inputSearchStyle"
-                        type="text"
-                        name="city"
-                        id="city"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        placeholder='Onde vamos?'
-                    /> */}
-
                     {arrayCidades &&
                         <Autocomplete
                             className='inputSearchStyle'
@@ -180,7 +180,6 @@ export function SearchBar({ filteredData }) {
                             renderInput={(params) => <TextField {...params} placeholder='Onde vamos?' />}
                         />
                     }
-
                 </div>
 
                 <section className="datepickerSection">

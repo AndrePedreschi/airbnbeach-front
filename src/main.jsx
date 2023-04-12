@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -5,8 +6,8 @@ import {
   useRouteError,
 } from "react-router-dom"
 
+
 import 'sweetalert2/src/sweetalert2.scss'
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { AuthProvider } from './contexts/auth'
 import './global.scss'
@@ -16,10 +17,11 @@ import { Login } from './pages/Login'
 import { CreateUser } from './pages/CreateUser'
 import { ProtectedRoute } from "./utils/ProtectedRoute"
 import { Product } from "./pages/Product"
-import { Category } from "./pages/Category"
 import { Booking } from "./Components/Booking"
 import { ProductDetail } from "./Components/ProductDetail"
 import { ProductRegister } from "./pages/ProductResgister"
+import { UserBookings } from "./pages/UserBookings"
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -56,9 +58,9 @@ const appRouter = createBrowserRouter([
       {
         path: "administrador",
         element:
-          //<ProtectedRoute redirectPath="/home" role='admin' msg='Você não pode acessar essa área!'>
+          <ProtectedRoute redirectPath="/home" msg='Você precisa estar logado para ver a suas reservas!'>
             <ProductRegister />,
-          //</ProtectedRoute>,
+          </ProtectedRoute>,
         errorElement: <ErrorBoundary />
       },
       {
@@ -74,6 +76,14 @@ const appRouter = createBrowserRouter([
       {
         path: "createUser",
         element: <CreateUser />,
+        errorElement: <ErrorBoundary />
+      },
+      {
+        path: "reservas",
+        element:
+          <ProtectedRoute redirectPath="/home" msg='Você precisa estar logado para ver a suas reservas!'>
+            <UserBookings />,
+          </ProtectedRoute>,
         errorElement: <ErrorBoundary />
       },
       {
@@ -96,13 +106,6 @@ const appRouter = createBrowserRouter([
           },
         ]
       },
-
-      {
-        path: "category/:id",
-        element: <Category />,
-        errorElement: <ErrorBoundary />
-      },
-
       {
         path: "rotaProtegida",
         element:

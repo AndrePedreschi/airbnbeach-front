@@ -1,9 +1,7 @@
 .cardBodyStyle[type="category"] {
     height: 15.5rem;
     max-width: 19.5rem;
-    //max-width: 17.5rem;
     width: 100%;
-
     background-color: #ffffff;
     border: 1px solid var(--grey-medium);
     border-radius: 10px;
@@ -15,6 +13,7 @@
     text-decoration: none;
     cursor: pointer;
 
+    
 
     .thumbStyle {
         display: flex;
@@ -23,8 +22,7 @@
         .imgStyle {
             height: 11.5rem;
             width: 100%;
-            border-radius: 10px 10px 0 0;
-            
+            border-radius: 10px 10px 0 0;    
         }
     }
 
@@ -61,6 +59,7 @@
     -webkit-box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.75);
 
+    
     .mapModalContainer {
         height: 100vh;
         width: 100%;
@@ -99,7 +98,7 @@
 
     .thumbStyle {
         display: flex;
-
+        width: 300px;
         .heartIconStyle {
             margin: 2px 14px 0px -34px;
             cursor: pointer;
@@ -110,13 +109,15 @@
             margin-bottom: -1px;
             margin-left: -1px;
             min-height: 17.75rem;
+            max-height: 302px;
             max-width: 20.5rem;
-            width: auto;
+            width: 300px;
             border-radius: 10px;
         }
     }
 
     .detailsStyle {
+        width: 100%;
         padding: 0.75rem 0.75em 0.75rem 0.25rem;
         display: flex;
         gap: 0.5rem;
@@ -297,7 +298,6 @@
         .thumbStyle {
             .imgStyle {
                 min-height: 11.5rem;
-                border-radius: 10px 10px 0 0;
                 max-width: 20.75rem;
                 //max-width: 20.75rem;
             }
@@ -337,8 +337,6 @@
                 //height: 6.875rem;
                 //height: auto;
                 max-width: 24.75rem;
-                width: 100%;
-                border-radius: 10px 10px 0 0;
             }
         }
     }
@@ -348,6 +346,7 @@
         flex-direction: column;
 
         .thumbStyle {
+            width: 100%;
             .imgStyle {
                 object-fit: cover;
                 max-height: 14.5rem;
@@ -355,6 +354,7 @@
                 width: 101%;
             }
         }
+
 
         .detailsStyle {
             padding: 0rem 0.5em 0.5rem 0.5rem;
