@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/Components/Header.jsx</title>
+    <title>Code coverage report for Components/HeartIcon.jsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/Components</a> Header.jsx</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">Components</a> HeartIcon.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.65% </span>
+                <span class="strong">8.69% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/104</span>
+                <span class='fraction'>8/92</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.65% </span>
+                <span class="strong">8.69% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/104</span>
+                <span class='fraction'>8/92</span>
             </div>
         
             
@@ -156,19 +156,7 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -260,121 +248,100 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { X } from 'phosphor-react'
-import "./Header.scss";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import './HeartIcon.scss'
+import { toast } from 'react-toastify';
 import { useAuth } from "../contexts/auth";
-import Swal from 'sweetalert2'
+import { useState, useEffect } from "react";
+import axios from "axios";
 &nbsp;
-&nbsp;
-export <span class="fstat-no" title="function not covered" >function Header() {</span>
-<span class="cstat-no" title="statement not covered" >  const { auth, user, deleteUser } = useAuth();</span>
-<span class="cstat-no" title="statement not covered" >  const navigate = useNavigate();</span>
-<span class="cstat-no" title="statement not covered" >  const [urlPath, setUrlPath] = useState(window.location.pathname);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  useEffect(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    setUrlPath(window.location.pathname)</span>
-<span class="cstat-no" title="statement not covered" >  }, [urlPath])</span>
+//posso receber por props o estado inicial do coração e seta-lo em fav ao usar o componente
+export <span class="fstat-no" title="function not covered" >function HeartIcon({ id, favorite = false, border }) {</span>
+<span class="cstat-no" title="statement not covered" >    const { auth, urlBase } = useAuth();</span>
+<span class="cstat-no" title="statement not covered" >    const [check, setCheck] = useState(favorite);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  function logout() {</span>
+<span class="cstat-no" title="statement not covered" >    function favoriteToggle(e) {</span>
+<span class="cstat-no" title="statement not covered" >        //e.preventDefault();</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    Swal.fire({</span>
-<span class="cstat-no" title="statement not covered" >      title: 'Deseja realmente sair?',</span>
-<span class="cstat-no" title="statement not covered" >      width: '360',</span>
-<span class="cstat-no" title="statement not covered" >      color: '#545776',</span>
-<span class="cstat-no" title="statement not covered" >      icon: 'question',</span>
-<span class="cstat-no" title="statement not covered" >      focusCancel: true,</span>
-<span class="cstat-no" title="statement not covered" >      showCancelButton: true,</span>
-<span class="cstat-no" title="statement not covered" >      confirmButtonText: 'Sim',</span>
-<span class="cstat-no" title="statement not covered" >      cancelButtonText: 'Não',</span>
-<span class="cstat-no" title="statement not covered" >      reverseButtons: true</span>
-<span class="cstat-no" title="statement not covered" >    }).then((result) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if (result.isConfirmed) {</span>
-<span class="cstat-no" title="statement not covered" >        deleteUser()</span>
-<span class="cstat-no" title="statement not covered" >        navigate('/home')</span>
-<span class="cstat-no" title="statement not covered" >      } else {</span>
-<span class="cstat-no" title="statement not covered" >        return</span>
-<span class="cstat-no" title="statement not covered" >      }</span>
-<span class="cstat-no" title="statement not covered" >    })</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  function changeScreen(type) {</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    if (type === 'login') {</span>
-<span class="cstat-no" title="statement not covered" >      navigate('/login')</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    if (type === 'createUser') {</span>
-<span class="cstat-no" title="statement not covered" >      navigate('/createUser')</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    if (type === 'home') {</span>
-<span class="cstat-no" title="statement not covered" >      navigate('/home')</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    setTimeout(() =&gt; { setUrlPath('') }, 1)</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  //devemos trocar o 'user' pelo 'auth' na verificação para ver se tem alguém logado</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;section className="headerFull"&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;section className="logoSection"&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div onClick={() =&gt; changeScreen('home')} className="logoImg" &gt;&lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;h2 className="logoTagline"&gt;Sinta-se em casa&lt;/h2&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;/section&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      &lt;div className="asideHolder" type={urlPath}&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        {user !== '' &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;div className="loggedIn"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;p className="profilePicture"&gt;{user.shortName}&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            &lt;div className="greetingAndName"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;p className=""&gt;Olá,&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;p className="greetingAndNameGreen"&gt;{user.name}&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;X size={26} onClick={logout} alt="Sair" weight="bold" className="btnLoggout" /&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >        )}</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        {user == '' &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;&gt;</span>
-<span class="cstat-no" title="statement not covered" >            {urlPath !== '/createUser' &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;button className='btnHeader' onClick={() =&gt; changeScreen('createUser')}&gt;Criar conta&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >        if (!auth) {</span>
+<span class="cstat-no" title="statement not covered" >            toast.error('Você precisa estar logado para favoritar os itens')</span>
+<span class="cstat-no" title="statement not covered" >        } else {</span>
+<span class="cstat-no" title="statement not covered" >            </span>
+<span class="cstat-no" title="statement not covered" >            let url=`${urlBase}/favoritos`;</span>
+<span class="cstat-no" title="statement not covered" >            </span>
+<span class="cstat-no" title="statement not covered" >            let data = {</span>
+<span class="cstat-no" title="statement not covered" >                user: '',</span>
+<span class="cstat-no" title="statement not covered" >                productId: id</span>
 <span class="cstat-no" title="statement not covered" >            }</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            {urlPath !== '/login' &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;button className='btnHeader' onClick={() =&gt; changeScreen('login')}&gt;Iniciar sessão&lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >            }</span>
-<span class="cstat-no" title="statement not covered" >            {/* {(urlPath === '/login' || urlPath === '/home') &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;button className='btnHeader' onClick={() =&gt; changeScreen('createUser')}&gt;Criar conta&lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >            }</span>
+<span class="cstat-no" title="statement not covered" >            // toast.success('avoritar os itens')</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            {(urlPath === '/createUser' || urlPath === '/home') &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;button className='btnHeader' onClick={() =&gt; changeScreen('login')}&gt;Iniciar sessão&lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >            } */}</span>
+<span class="cstat-no" title="statement not covered" >            /* axios.post(url, data, options).then((response) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                setCheck(!check)</span>
+<span class="cstat-no" title="statement not covered" >                if (response = 'adicionado') {</span>
+<span class="cstat-no" title="statement not covered" >                    toast.success('Adicionado a lista de favoritos')</span>
+<span class="cstat-no" title="statement not covered" >                }else{</span>
+<span class="cstat-no" title="statement not covered" >                    toast.success('Retirado a lista de favoritos')</span>
+<span class="cstat-no" title="statement not covered" >                }</span>
+<span class="cstat-no" title="statement not covered" >               </span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >          &lt;/&gt;</span>
+<span class="cstat-no" title="statement not covered" >            }, (error) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                if (error.status == 404) return toast.error('Usuário não encontrado');</span>
+<span class="cstat-no" title="statement not covered" >                if (error.status == 404) return toast.error('Usuário ou senha não encontrados');</span>
+<span class="cstat-no" title="statement not covered" >                if (error.code === 'ERR_NETWORK') return;</span>
+<span class="cstat-no" title="statement not covered" >            }); */</span>
+<span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >    &lt;/section&gt;</span>
-<span class="cstat-no" title="statement not covered" >  );</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    return (</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className='heartIconStyle' onClick={favoriteToggle}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;input type="checkbox" value={check} defaultChecked={check} onChange={(e) =&gt; setCheck(e.target.value)} id={`checkbox${id}`} className={`inputFavStyle`} /&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >            &lt;label htmlFor={`checkbox${id}`} className='labelStyle'&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;svg className="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;g className="Group" fill='none' fillRule="evenodd" transform="translate(467 392)"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;path className={`heart  border${border}`} d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;circle className="main-circ" fill='#E2264D' opacity="0" cx="29.5" cy="29.5" r="1.5" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;g className="grp7" opacity="0" transform="translate(7 6)"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval1" fill='#9CD8C3' cx="2" cy="6" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval2" fill='#8CE8C3' cx="5" cy="2" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;/g&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;g className="grp6" opacity="0" transform="translate(0 28)"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval1" fill="#CC8EF5" cx="2" cy="7" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval2" fill="#91D2FA" cx="3" cy="2" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;/g&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;g className="grp3" opacity="0" transform="translate(52 28)"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval2" fill="#9CD8C3" cx="2" cy="7" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval1" fill="#8CE8C3" cx="4" cy="2" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;/g&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;g className="grp2" opacity="0" transform="translate(44 6)"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval2" fill="#CC8EF5" cx="5" cy="6" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval1" fill="#CC8EF5" cx="2" cy="2" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;/g&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;g className="grp5" opacity="0" transform="translate(14 50)"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval1" fill="#91D2FA" cx="6" cy="5" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval2" fill="#91D2FA" cx="2" cy="2" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;/g&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;g className="grp4" opacity="0" transform="translate(35 50)"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval1" fill="#F48EA7" cx="6" cy="5" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval2" fill="#F48EA7" cx="2" cy="2" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;/g&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;g className="grp1" opacity="0" transform="translate(24)"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval1" fill="#9FC7FA" cx="2.5" cy="3" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;circle className="oval2" fill="#9FC7FA" cx="7.5" cy="2" r="2" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;/g&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;/g&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;/svg&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >    )</span>
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >}</span></span>
+&nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -382,16 +349,16 @@ export <span class="fstat-no" title="function not covered" >function Header() {<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-10T22:28:29.759Z
+                at 2023-04-12T19:50:22.303Z
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
     </body>
 </html>
     

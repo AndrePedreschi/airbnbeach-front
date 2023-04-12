@@ -1,6 +1,6 @@
 import "./Sidebar.scss";
 import { useState, useEffect } from "react";
-import { FacebookLogo, LinkedinLogo, TwitterLogo, InstagramLogo, X , DotsThreeOutlineVertical , CaretUp, CalendarCheck, SignOut, PlusCircle} from 'phosphor-react'
+import { FacebookLogo, LinkedinLogo, TwitterLogo, InstagramLogo, X, CalendarCheck, SignOut, PlusCircle } from 'phosphor-react'
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/auth";
 import Swal from 'sweetalert2'
@@ -13,6 +13,7 @@ export function Sidebar() {
   const navigate = useNavigate();
   const [sidebarDisplay, setSidebarDisplay] = useState(false);
   const [animation, setAnimation] = useState("");
+
 
   useEffect(() => {
     setUrlPath(window.location.pathname)
@@ -75,22 +76,27 @@ export function Sidebar() {
               </div>
 
               <div className="linksMenuHeaderHolder">
-                <div className="itensMenuHeader">
-                  <Link to={`/administrador`} className="text-normal">Cadastrar local</Link>
-                  <PlusCircle size={32} color="var(--grey-darkest)" />
-                </div>
-                <div className="itensMenuHeader">
-                  <Link to={`/reservas`} className="text-normal">Ver reservas</Link>
-                  <CalendarCheck size={32} color="var(--grey-darkest)" />
-                </div>
+               {/*  {user.papel === "ADMIN" && */}
+                  <div className="itensMenuHeader">
+                    <Link to={`/administrador`} className="text-normal itensMenuHeader">Cadastrar local <PlusCircle size={32} color="var(--grey-darkest)" /></Link>
+                  </div>
+               {/*  } */}
+
+                {/* {user.papel !== "ADMIN" && */}
+                  <div className="itensMenuHeader">
+                    <Link to={`/reservas`} className="text-normal itensMenuHeader">Ver reservas <CalendarCheck size={32} color="var(--grey-darkest)" />
+                    </Link>
+                  </div>
+               {/*  } */}
+
                 <div className="itensMenuHeader" onClick={logout}>
-                  <Link className="text-normal">Sair</Link>
-                  <SignOut size={32} color="var(--grey-darkest)" />
+                  <Link className="text-normal itensMenuHeader">Sair <SignOut size={32} color="var(--grey-darkest)" /></Link>
+
                 </div>
               </div>
 
 
-              <p className="loggoutText" onClick={logout} >Deseja <a href="#" className="loggoutLink">encerrar a sessão</a>?</p>
+              {/* <p className="loggoutText" onClick={logout} >Deseja <a href="#" className="loggoutLink">encerrar a sessão</a>?</p> */}
             </div>
           }
 

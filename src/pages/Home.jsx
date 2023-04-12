@@ -3,7 +3,11 @@ import { Card } from "../Components/Card";
 import { SearchBar } from '../Components/SearchBar'
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import ReactPaginate from 'react-paginate';
+//import ReactPaginate from 'react-paginate';
+import { PaginationControl } from 'react-bootstrap-pagination-control';
+
+
+
 import { useAuth } from "../contexts/auth";
 
 export function Home() {
@@ -11,12 +15,11 @@ export function Home() {
     const [categorias, setCategorias] = useState('')
     const [produtos, setProdutos] = useState('')
     const [produtosFiltrados, setProdutosFiltrados] = useState('')
-    //paginação
-    const [pageCount, setPageCount] = useState(0);
+    //const [pageCount, setPageCount] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(4);
     const [itemOffset, setItemOffset] = useState(0);
     const [currentItems, setCurrentItems] = useState('');
-
+    const [page, setPage] = useState(1)
 
 
     useEffect(() => {
@@ -38,26 +41,13 @@ export function Home() {
             (error) => {
                 //if (error.status == 404) return toast.error('Usuário não encontrado');
                 if (error.code === 'ERR_NETWORK') return toast.error('Ocorreu um erro, por favor recarregue a página.');
-
             }
         )
-
-        /* axios.defaults.headers.get['Authorization'] = `Bearer ${auth}`;
-        axios.get(`${urlBase}/reservas/usuario/3`).then(
-            (response) => {
-                console.log(response.data);
-            },
-            (error) => {
-                //if (error.status == 404) return toast.error('Usuário não encontrado');
-                if (error.code === 'ERR_NETWORK') return toast.error('Ocorreu um erro, por favor recarregue a página.');
-
-            }
-        ) */
     }, [])
-    
+
 
     //paginação
-    useEffect(() => {
+    /* useEffect(() => {
         const endOffset = itemOffset + itemsPerPage;
         setCurrentItems(produtosFiltrados.slice(itemOffset, endOffset));
         setPageCount(Math.ceil(produtosFiltrados.length / itemsPerPage));
@@ -68,14 +58,25 @@ export function Home() {
         //setCurrentItems(produtosFiltrados.slice(itemOffset, endOffset));
         //setPageCount(Math.ceil(produtosFiltrados.length / itemsPerPage));
         setItemOffset(0);
+    }, [produtosFiltrados]); */
+
+
+    useEffect(() => {
+        const endOffset = itemOffset + itemsPerPage;
+        setCurrentItems(produtosFiltrados.slice(itemOffset, endOffset));
+    }, [itemOffset, produtosFiltrados]);
+
+    useEffect(() => {
+        setItemOffset(0);
+        setPage(1)
     }, [produtosFiltrados]);
 
 
 
-    const handlePageClick = (event) => {
+    /* const handlePageClick = (event) => {
         const newOffset = (event.selected * itemsPerPage) % produtosFiltrados.length;
         setItemOffset(newOffset);
-    };
+    }; */
 
 
     function filterCategory(categoryId) {
@@ -105,7 +106,7 @@ export function Home() {
                     <h1>Buscar por tipo de acomodação</h1>
                     <div className="categoryContainer">
                         {categorias && categorias.map((element, index) => (
-                            
+
                             <Card
                                 className='cardCategorias'
                                 key={index}
@@ -146,7 +147,7 @@ export function Home() {
                     </div>
                 </div>
 
-                <ReactPaginate
+                {/* <ReactPaginate
                     className="react-paginate"
                     nextLabel=">"
                     onPageChange={handlePageClick}
@@ -170,6 +171,18 @@ export function Home() {
                 //forcePage={1}
                 //onPageChange={console.log('mudou')}
                 //initialPage={0}
+                /> */}
+
+                <PaginationControl
+                    page={page}
+                    between={3}
+                    total={produtosFiltrados.length}
+                    limit={itemsPerPage}
+                    changePage={(page) => {
+                        setPage(page);
+                        setItemOffset((page-1)*itemsPerPage % produtosFiltrados.length);
+                    }}
+                    ellipsis={1}
                 />
 
             </section>

@@ -84,8 +84,6 @@ export function ProductDetail() {
                 autoClose: true,
                 tooltipText: { "one": "dia", "other": "dias" },
                 inlineMode: true,
-                //minDate:'03/15/2023',
-
 
                 lockDaysFilter: (date1, date2, pickedDates) => {
                     if (productData.lockedDates && productData.lockedDates !== undefined) {
@@ -124,15 +122,14 @@ export function ProductDetail() {
             }
         }, 2);
     }, [windowWidth])
-    //useffect usado para criar o calendário
+
     useEffect(() => {
         setShareUrl(window.location.href)
-
-
-        /* setTimeout(() => {
-            createDatepicker()
-        }, 1); */
     }, [])
+
+    function copyUrl(url){
+        navigator.clipboard.writeText(url);
+    }
 
 
     return (
@@ -176,7 +173,7 @@ export function ProductDetail() {
                             <h1 className='shareTitle'>Compartilhe esta oportunidade!</h1>
                             <section className='shareInputContainer'>
                                 <input type="text" defaultValue={shareUrl} readOnly={true} className='shareInput' />
-                                <button className='copyStyle' onClick={() => { navigator.clipboard.writeText(shareUrl); }}>
+                                <button className='copyStyle' onClick={() => { copyUrl(shareUrl) }}>
                                     <Copy className='copyButton' size={26} />
                                 </button>
                             </section>

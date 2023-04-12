@@ -180,8 +180,12 @@ export function Header() {
       </div>
       <div ref={novaDivRef} className="nova-div">
         <div className="linksMenuHeaderHolder">
-          <Link to={`/administrador`} className="text-normal estiloIcone"><PlusCircle size={32} color="white" /> Cadastrar local</Link>
-          <Link to={`/reservas`} className="text-normal estiloIcone"> <CalendarCheck size={32} color="white" /> Ver reservas</Link>
+          {/* {user.papel === "ADMIN" && */}
+            <Link to={`/administrador`} className="text-normal estiloIcone"><PlusCircle size={32} color="white" /> Cadastrar local</Link>
+          {/* } */}
+          {/* {user.papel !== "ADMIN" && */}
+            <Link to={`/reservas`} className="text-normal estiloIcone"> <CalendarCheck size={32} color="white" /> Ver reservas</Link>
+          {/* } */}
           <Link onClick={() => { logout(); toggleDiv() }} className="text-normal estiloIcone"><SignOut size={32} color="white" /> Sair</Link>
           <Link className="text-normal estiloIcone" onClick={toggleDiv}> <CaretUp size={32} color="white" /> Fechar menu</Link>
         </div>

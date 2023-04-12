@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/pages/Home.jsx</title>
+    <title>Code coverage report for Components/Map2.jsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/pages</a> Home.jsx</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">Components</a> Map2.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.57% </span>
+                <span class="strong">18.64% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/70</span>
+                <span class='fraction'>11/59</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.57% </span>
+                <span class="strong">18.64% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/70</span>
+                <span class='fraction'>11/59</span>
             </div>
         
             
@@ -122,17 +122,12 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -186,107 +181,82 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import './Home.scss'
-import { Card } from "../Components/Card";
-import { cards, recomendations } from '/public/cardsMock.js'
-import { SearchBar } from '../Components/SearchBar'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import './Map.scss'
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
+import 'leaflet-fullscreen/dist/Leaflet.fullscreen.js';
+import mapIconUrl from '../assets/map-icon.png';
+import mapIconShadowUrl from '../assets/map-icon-shadow.png';
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function Home() {</span>
+&nbsp;
+&nbsp;
+&nbsp;
+export <span class="fstat-no" title="function not covered" >function Map2({ location, downtown, address }) {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    setTimeout(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        var map = new L.map('map', {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        }).setView(location, 13);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {</span>
+<span class="cstat-no" title="statement not covered" >            maxZoom: 19,</span>
+<span class="cstat-no" title="statement not covered" >            attribution: '&amp;copy; &lt;a href="http://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt;'</span>
+<span class="cstat-no" title="statement not covered" >        }).addTo(map);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        const LeafIcon = L.Icon.extend({</span>
+<span class="cstat-no" title="statement not covered" >            options: {</span>
+<span class="cstat-no" title="statement not covered" >                shadowUrl: mapIconShadowUrl,</span>
+<span class="cstat-no" title="statement not covered" >                iconSize: [30, 50],</span>
+<span class="cstat-no" title="statement not covered" >                shadowSize: [50, 64],</span>
+<span class="cstat-no" title="statement not covered" >                iconAnchor: [19, 74],</span>
+<span class="cstat-no" title="statement not covered" >                shadowAnchor: [20, 97],</span>
+<span class="cstat-no" title="statement not covered" >                popupAnchor: [-3, -76]</span>
+<span class="cstat-no" title="statement not covered" >            }</span>
+<span class="cstat-no" title="statement not covered" >        });</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        const mapIcon = new LeafIcon({ iconUrl: mapIconUrl });</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        L.marker(location, { icon: mapIcon }).addTo(map)</span>
+<span class="cstat-no" title="statement not covered" >            .bindPopup(address)</span>
+<span class="cstat-no" title="statement not covered" >            .openPopup();</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        var circle = L.circle(downtown, {</span>
+<span class="cstat-no" title="statement not covered" >            color: 'red',</span>
+<span class="cstat-no" title="statement not covered" >            fillColor: '#f03',</span>
+<span class="cstat-no" title="statement not covered" >            fillOpacity: 0.5,</span>
+<span class="cstat-no" title="statement not covered" >            radius: 2000</span>
+<span class="cstat-no" title="statement not covered" >        }).addTo(map);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        circle.bindPopup("Centro")</span>
+<span class="cstat-no" title="statement not covered" >        map.addControl(new L.Control.Fullscreen());</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    }, 10);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;main className="mainStyle"&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            &lt;SearchBar /&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            &lt;section className="categoriesSection"&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >                 &lt;div className='custonSection'&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;h1&gt;Buscar por tipo de acomodação&lt;/h1&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;div className="categoryContainer"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        {cards.map((element, index) =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >                            &lt;Card</span>
-<span class="cstat-no" title="statement not covered" >                                className='cardStyle'</span>
-<span class="cstat-no" title="statement not covered" >                                key={index}</span>
-<span class="cstat-no" title="statement not covered" >                                type='category'</span>
-<span class="cstat-no" title="statement not covered" >                                id={element.id}</span>
-<span class="cstat-no" title="statement not covered" >                                img={element.img}</span>
-<span class="cstat-no" title="statement not covered" >                                category={element.category}</span>
-<span class="cstat-no" title="statement not covered" >                                quantity={element.quantity}</span>
-<span class="cstat-no" title="statement not covered" >                            /&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        ))}</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            &lt;/section&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            &lt;section className="recomendationsSection"&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >                &lt;div className='custonSection'&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >                    &lt;h1&gt;Recomendações&lt;/h1&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;div className="recomendationContainer"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        {recomendations.map((element, index) =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >                            &lt;Card</span>
-<span class="cstat-no" title="statement not covered" >                                key={index}</span>
-<span class="cstat-no" title="statement not covered" >                                type='recomendations'</span>
-<span class="cstat-no" title="statement not covered" >                                id={element.id}</span>
-<span class="cstat-no" title="statement not covered" >                                img={element.img}</span>
-<span class="cstat-no" title="statement not covered" >                                favorite={element.favorite}</span>
-<span class="cstat-no" title="statement not covered" >                                stars={element.stars}</span>
-<span class="cstat-no" title="statement not covered" >                                title={element.title}</span>
-<span class="cstat-no" title="statement not covered" >                                grade={element.grade}</span>
-<span class="cstat-no" title="statement not covered" >                                location={element.location}</span>
-<span class="cstat-no" title="statement not covered" >                                differential={element.differential}</span>
-<span class="cstat-no" title="statement not covered" >                                description={element.description}</span>
-<span class="cstat-no" title="statement not covered" >                            /&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        ))}</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            &lt;/section&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/main&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        &lt;&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div id="map" className='mapStyle'&gt;&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/&gt;</span>
 <span class="cstat-no" title="statement not covered" >    )</span>
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >}</span></span></pre></td></tr></table></pre>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >}</span></span>
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-10T22:28:29.759Z
+                at 2023-04-12T19:50:22.303Z
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
     </body>
 </html>
     
