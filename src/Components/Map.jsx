@@ -38,25 +38,26 @@ export function Map({ location, downtown, address }) {
     const mapIcon = new LeafIcon({ iconUrl: mapIconUrl });
 
     return (
-        <MapContainer className='mapStyle'  fullscreenControl={true} fullscreenControlOptions={{position:'topleft'}} center={location} zoom={13} scrollWheelZoom={true}>
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            {/* <MyMarker position={location} >
-                <Popup>
-                    <b>{address}</b>
-                </Popup>
-            </MyMarker> */}
-            {/* <Marker position={location} >
-                <Popup>
-                    <b>{address}</b>
-                </Popup>
-            </Marker> */}
-            <Marker position={location} icon={mapIcon}>
-                {/* <Popup> <b>{address}</b> </Popup> */}
-                <Tooltip direction="top" offset={[-15, -15]} opacity={1} permanent><b>{address}</b></Tooltip>
-            </Marker>
-            <Circle center={downtown} radius={2000} fillColor='#ee375c' color='red' />
-        </MapContainer>
+        <>
+            {location !== "[undefined, undefined]" && downtown !== "[undefined, undefined]" ?
+
+
+                <MapContainer className='mapStyle' fullscreenControl={true} fullscreenControlOptions={{ position: 'topleft' }} center={location} zoom={13} scrollWheelZoom={true}>
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                    <Marker position={location} icon={mapIcon}>
+                        {/* <Popup> <b>{address}</b> </Popup> */}
+                        <Tooltip direction="top" offset={[-15, -15]} opacity={1} permanent><b>{address}</b></Tooltip>
+                    </Marker>
+                    <Circle center={downtown} radius={2000} fillColor='#ee375c' color='red' />
+                </MapContainer>
+
+                :
+                <p>Ocorreu um erro com mapa da propriedade, por favor entre em contato com o suporte</p>
+            }
+        </>
+
+
     )
 }

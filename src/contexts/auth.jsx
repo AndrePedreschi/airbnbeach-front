@@ -2,14 +2,17 @@ import axios from "axios"
 import { useState, useEffect } from "react"
 import { createContext, useContext } from "react"
 
+
 const AuthContext = createContext()
 
 export function AuthProvider(props) {
+  const [homeProducts, setHomeProducts] = useState('');
+  const [loading, setLoading] = useState(false);
   const [urlPath, setUrlPath] = useState(window.location.pathname);
   const [urlBase, setUrlBase] = useState('http://18.117.145.11:8080');
   //const [urlBase, setUrlBase] = useState('http://18.191.176.59:8080');
   //const [urlBase, setUrlBase] = useState('https://airbnbeach-back.onrender.com');
-  
+
   const authLocalStorage = localStorage.getItem('auth')
   const userLocalStorage = JSON.parse(localStorage.getItem('user'))
 
@@ -66,39 +69,47 @@ export function AuthProvider(props) {
   //método 2
   //axios.defaults.headers.common['Auth_Token'] = 'teste 2'
 
-  //método 3
-  /* //Testando interceptor de rotas
-  // declare a request interceptor
-  axios.interceptors.request.use(config => {
-    // perform a task before the request is sent
+  function initialProducts(){
+    axios.get(`${urlBase}/produtos`).then(
+      (response) => {
+        setHomeProducts(response.data);
+      },
+      (error) => {
+          //if (error.status == 404) return toast.error('Usuário não encontrado');
+          if (error.code === 'ERR_NETWORK') return toast.error('Ocorreu um erro, por favor recarregue a página.');
+      }
+  )
+  }
 
-    if (config.method == "post") {
-      console.log("Enviando um post");
-    }
-    if (config.method == "get") {
-      console.log("Enviando um get");
-    }
-    if (config.method == "delete") {
-      console.log("Enviando um delete");
-    }
-    if (config.method == "patch") {
-      console.log("Enviando um patch");
-    }
+  axios.interceptors.request.use(function (config) {
+    setLoading(true)
+    return config
+  }, function (error) {
 
-    console.log(config);
-
-    //método 3
-    config.headers.Authorization = 'teste 3';
-
-    return config;
-  }, error => {
-    // handle the error
     return Promise.reject(error);
-  }); */
+  });
+
+  axios.interceptors.response.use(function (response) {
+    setLoading(false)
+    return response;
+  }, function (error) {
+
+    return Promise.reject(error);
+  });
+
+  function loadingWait(time) {
+    setLoading(true)
+
+    setTimeout(() => {
+      setLoading(false)
+    }, time);
+  }
+
+
 
   return (
 
-    <AuthContext.Provider value={{ auth, saveToken, deleteToken, user, userLogout, saveUser, urlPath, setUrlPath, urlBase }}>
+    <AuthContext.Provider value={{ auth, saveToken, deleteToken, user, userLogout, saveUser, urlPath, setUrlPath, urlBase, loading, loadingWait, initialProducts, homeProducts }}>
       {props.children}
     </AuthContext.Provider>
 

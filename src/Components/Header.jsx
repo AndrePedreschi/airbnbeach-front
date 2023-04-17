@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 
 
 export function Header() {
-  const { auth, user, userLogout, urlPath, setUrlPath } = useAuth();
+  const { auth, user, userLogout, urlPath, setUrlPath, initialProducts } = useAuth();
   const navigate = useNavigate();
   const [isNovaDivVisible, setIsNovaDivVisible] = useState(false);
   const novaDivRef = useRef(null);
@@ -48,9 +48,6 @@ export function Header() {
   }, [windowWidth])
 
 
-
-
-
   function logout() {
     Swal.fire({
       title: 'Deseja realmente sair?',
@@ -84,6 +81,7 @@ export function Header() {
       setUrlPath(window.location.pathname)
     }
     if (type === 'home') {
+      initialProducts()
       navigate('/home')
       setUrlPath(window.location.pathname)
     }

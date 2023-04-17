@@ -58,7 +58,7 @@ const appRouter = createBrowserRouter([
       {
         path: "administrador",
         element:
-          <ProtectedRoute redirectPath="/home" msg='Você precisa estar logado para ver a suas reservas!'>
+          <ProtectedRoute redirectPath="/home" msg='Você precisa estar logado para acessar essa área!'>
             <ProductRegister />,
           </ProtectedRoute>,
         errorElement: <ErrorBoundary />

@@ -4,11 +4,13 @@ import { convertNumber } from '../utils/convertNumber'
 import { gradeStatus } from '../utils/gradeStatus'
 import { toast } from 'react-toastify';
 import { X, MapPin, WifiHigh, PawPrint, Television, CookingPot, Car, Bathtub, Wind } from 'phosphor-react'
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { HeartIcon } from './HeartIcon';
 import { Map } from './Map'
 import { Map2 } from './Map2'
 import { StarRate } from './StarRate';
+import { useAuth } from "../contexts/auth";
+import { Loading } from './Loading';
 
 export function Card({
     id,
@@ -25,21 +27,21 @@ export function Card({
     description,
     filteredData
 }) {
+    const { urlBase, loading, loadingWait } = useAuth();
     const [modal, setModal] = useState(false);
     const [caracteristicas, setCaracteristicas] = useState('');
 
     useEffect(() => {
         if (differential) {
-            setCaracteristicas(differential.map((item) => item.icone));
+            setCaracteristicas(differential.map((item) => item.nome));
         }
-    }, [])
-
+    }, [differential]) 
 
 
     return (
         <>
             {type === 'category' &&
-                <div type='category' className='cardBodyStyle' onClick={() => filteredData(id)}>
+                <div type='category' className='cardBodyStyle' onClick={() => {filteredData(id); loadingWait(400)}}>
                     <section className='thumbStyle'>
                         <img className='imgStyle' src={img} />
                     </section>
@@ -57,7 +59,7 @@ export function Card({
                     {modal &&
                         <div className="mapModalContainer" >
                             <div className="controle" onClick={() => setModal(false)}></div>
-                            <Map2 location={JSON.parse(location.coordenadas  !== "[undefined, undefined]" ? location.coordenadas : location.centro)} downtown={JSON.parse(location.centro)} address={location.endereco} />
+                            <Map2 location={JSON.parse(location.coordenadas !== "[undefined, undefined]" ? location.coordenadas : location.centro)} downtown={JSON.parse(location.centro)} address={location.endereco} />
                             <X size={32} className='closeIcon' color="#ffffff" weight="bold" onClick={() => setModal(false)} />
 
                         </div>
@@ -65,7 +67,11 @@ export function Card({
 
                     <section className='thumbStyle'>
                         <img className='imgStyle' src={img[0].url} />
-                        <HeartIcon className='heartIconStyle' id={id} favorite={favorite} />
+                        {/* <HeartIcon
+                            className='heartIconStyle'
+                            id={id}
+                            //favorite={favorite} ]
+                        /> */}
                     </section>
 
                     <section className='detailsStyle'>
@@ -93,14 +99,14 @@ export function Card({
                             </div>
 
                             <div className='diferentialsStyle'>
-                                {caracteristicas.includes('wi-fi') && <WifiHigh size={20} color="#383b58" />}
-                                {caracteristicas.includes('pool') && <p className='poolIcon'></p>}
-                                {caracteristicas.includes('pets') && <PawPrint size={20} color="#383b58" weight="fill" />}
-                                {caracteristicas.includes('tv') && <Television size={20} color="#383b58" />}
-                                {caracteristicas.includes('kitchen') && <CookingPot size={20} color="#383b58" />}
-                                {caracteristicas.includes('parking') && <Car size={20} color="#383b58" />}
-                                {caracteristicas.includes('jacuzzi') && <Bathtub size={20} color="#383b58" />}
-                                {caracteristicas.includes('air-conditioning') && <Wind size={20} color="#383b58" />}
+                                {caracteristicas.includes('Wi-Fi') && <WifiHigh size={20} color="#383b58" />}
+                                {caracteristicas.includes('Piscina') && <p className='poolIcon'></p>}
+                                {caracteristicas.includes('Pets') && <PawPrint size={20} color="#383b58" weight="fill" />}
+                                {caracteristicas.includes('TV') && <Television size={20} color="#383b58" />}
+                                {caracteristicas.includes('Cozinha') && <CookingPot size={20} color="#383b58" />}
+                                {caracteristicas.includes('Estacionamento') && <Car size={20} color="#383b58" />}
+                                {caracteristicas.includes('Jacuzzi') && <Bathtub size={20} color="#383b58" />}
+                                {caracteristicas.includes('Ar-condicionado') && <Wind size={20} color="#383b58" />}
                             </div>
                         </section>
 

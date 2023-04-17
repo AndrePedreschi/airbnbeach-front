@@ -10,12 +10,13 @@ import successIcon from '../assets/success.gif'
 import { CheckCircle, MapPin } from 'phosphor-react'
 import { StarRate } from './StarRate';
 import { useAuth } from "../contexts/auth";
+import { Loading } from './Loading';
 
 
 export function Booking() {
     const productData = useOutletContext()
 
-    const { user, auth, urlBase } = useAuth();
+    const { user, auth, urlBase, loading } = useAuth();
     const navigate = useNavigate();
     const [city, setCity] = useState('')
     const [datePicker, setDatePicker] = useState(false);
@@ -25,7 +26,21 @@ export function Booking() {
     const [endDate, setEndDate] = useState('__/__/____');
     const litepickerRef = useRef(null);
 
-    //const [lockedDates, setlockedDates] = useState(productData.lockedDates);
+
+    function popularLockedDatesArr(listaDeReservas) {
+        const lockedDatesArr = [];
+
+        listaDeReservas.forEach(([dataInicioStr, dataFimStr]) => {
+            const dataInicio = new Date(dataInicioStr);
+            const dataFim = new Date(dataFimStr);
+
+            for (let dataAtual = new Date(dataInicio); dataAtual <= dataFim; dataAtual.setDate(dataAtual.getDate() + 1)) {
+                lockedDatesArr.push(dataAtual.toISOString().substring(0, 10));
+            }
+        });
+        return lockedDatesArr;
+    }
+
 
     useEffect(() => {
         if (productData !== undefined) {
@@ -57,9 +72,9 @@ export function Booking() {
             minDate: new Date(),
 
             lockDaysFilter: (date1, date2, pickedDates) => {
-                if(productData.lockedDates && productData.lockedDates !== undefined){
+                if (productData.lockedDates && productData.lockedDates !== undefined) {
                     return productData.lockedDates.includes(date1.format('YYYY-MM-DD'));
-                }else{
+                } else {
                     return
                 }
             },
@@ -69,8 +84,6 @@ export function Booking() {
                     setDatePicker(true)
                 });
                 picker.on('selected', (date1, date2) => {
-                    //console.log(date1.dateInstance.toISOString());
-                    //console.log(date2.dateInstance.toLocaleDateString('pt-BR'));
                     setStartDate(date1.dateInstance.toLocaleDateString('pt-BR'))
                     setEndDate(date2.dateInstance.toLocaleDateString('pt-BR'))
                 });
@@ -106,7 +119,7 @@ export function Booking() {
         }, 2);
     }, [windowWidth])
 
-  
+
     function cleanForm() {
         setCity('');
         litepickerRef.current.clearSelection()
@@ -137,10 +150,17 @@ export function Booking() {
     function handleSubmit(e) {
         e.preventDefault();
 
-        if (!validateForm()) return;
+        let arrayDatas = popularLockedDatesArr([[startDate.split('/').reverse().join('-'), endDate.split('/').reverse().join('-')]])
+        let controle = true
+        arrayDatas.forEach((item) => {
+            if (controle && productData.lockedDates.includes(item)) {
+                toast.error("Selecione uma data não selecionada!")
+                return controle = false
+            }
+        })
 
 
-
+        if (!validateForm() || !controle) return;
 
         let url = `${urlBase}/reservas`;
         let data = {
@@ -157,7 +177,8 @@ export function Booking() {
         axios.post(url, data).then((response) => {
 
             Swal.fire({
-                title: 'Sua reserva foi feita com sucesso',
+                title: "Sucesso!",
+                text: 'Sua reserva foi confirmada.',
                 width: '360',
                 color: '#545776',
                 imageUrl: successIcon,
@@ -177,122 +198,122 @@ export function Booking() {
         cleanForm();
     }
 
-
-
-
     return (
-        <form className='productBookingContainer' onSubmit={handleSubmit}>
-            <section className='confirmPersonalData'>
-                <h1 className='h1'>Complete seus dados</h1>
-                <section className='personalDataContainer'>
+        <div className='bookingSection'>
+            <Loading loading={loading} />
 
-                    <div className='inputContainer'>
-                        <label className='labelStyle h4'>Nome</label>
-                        <input defaultValue={user.nome} readOnly={true} className="inputStyle" />
-                    </div>
-                    <div className='inputContainer'>
-                        <label className='labelStyle h4'>Sobrenome</label>
-                        <input defaultValue={user.sobrenome} readOnly={true} className="inputStyle" />
-                    </div>
-                    <div className='inputContainer'>
-                        <label className='labelStyle h4'>E-mail</label>
-                        <input defaultValue={user.email} readOnly={true} className="inputStyle" />
-                    </div>
-                    <div className='inputContainer'>
-                        <label htmlFor='city' className='labelStyle h4'>Cidade</label>
-                        <input
-                            type="text"
-                            name='city'
-                            id='city'
-                            className="inputStyle"
-                            placeholder='Digite a cidade que reside...'
-                            value={city}
-                            onChange={(e) => setCity(textMask(e.target.value))}
-                        />
-                    </div>
+            <form className='productBookingContainer' onSubmit={handleSubmit}>
+                <section className='confirmPersonalData'>
+                    <h1 className='h1'>Complete seus dados</h1>
+                    <section className='personalDataContainer'>
+
+                        <div className='inputContainer'>
+                            <label className='labelStyle h4'>Nome</label>
+                            <input defaultValue={user.nome} readOnly={true} className="inputStyle" />
+                        </div>
+                        <div className='inputContainer'>
+                            <label className='labelStyle h4'>Sobrenome</label>
+                            <input defaultValue={user.sobrenome} readOnly={true} className="inputStyle" />
+                        </div>
+                        <div className='inputContainer'>
+                            <label className='labelStyle h4'>E-mail</label>
+                            <input defaultValue={user.email} readOnly={true} className="inputStyle" />
+                        </div>
+                        <div className='inputContainer'>
+                            <label htmlFor='city' className='labelStyle h4'>Cidade</label>
+                            <input
+                                type="text"
+                                name='city'
+                                id='city'
+                                className="inputStyle"
+                                placeholder='Digite a cidade que reside...'
+                                value={city}
+                                onChange={(e) => setCity(textMask(e.target.value))}
+                            />
+                        </div>
+                    </section>
                 </section>
-            </section>
 
-            <section className='bookingDate'>
-                <h1 className='h1'>Selecione sua data de reserva</h1>
-                <section className="datePickerSection">
-                    <div className="datepickerStyle" id='datepicker' ref={litepickerRef} />
+                <section className='bookingDate'>
+                    <h1 className='h1'>Selecione sua data de reserva</h1>
+                    <section className="datePickerSection">
+                        <div className="datepickerStyle" id='datepicker' ref={litepickerRef} />
+                    </section>
                 </section>
-            </section>
 
-            <section className='bookingCheckIn'>
-                <h1 className='h1'>Seu horário de chegada</h1>
-                <section className='checkinHourSection'>
-                    <div className='checkinText'>
-                        <CheckCircle className='okIcon' />
-                        <p className='h4'>Seu quarto estara pronto para check-in entre 10h00 e 23h00</p>
-                    </div>
+                <section className='bookingCheckIn'>
+                    <h1 className='h1'>Seu horário de chegada</h1>
+                    <section className='checkinHourSection'>
+                        <div className='checkinText'>
+                            <CheckCircle className='okIcon' />
+                            <p className='h4'>Seu quarto estara pronto para check-in entre 10h00 e 23h00</p>
+                        </div>
 
-                    <div className='checkinTime'>
-                        <label htmlFor="checkinTime" className='h4'>Indique a sua hora prevista de chegada</label>
-                        <select name="time" value={arrivalHour} id="selectTime" className='selectTimeStyle' onChange={(e) => setArrivalHour(e.target.value)}>
-                            <option value="Selecione a data e hora de chegada">Selecione a data e hora de chegada</option>
-                            <option value="01:00:00">01:00 AM</option>
-                            <option value="02:00:00">02:00 AM</option>
-                            <option value="03:00:00">03:00 AM</option>
-                            <option value="04:00:00">04:00 AM</option>
-                            <option value="05:00:00">05:00 AM</option>
-                            <option value="06:00:00">06:00 AM</option>
-                            <option value="07:00:00">07:00 AM</option>
-                            <option value="08:00:00">08:00 AM</option>
-                            <option value="09:00:00">09:00 AM</option>
-                            <option value="10:00:00">10:00 AM</option>
-                            <option value="11:00:00">11:00 AM</option>
-                            <option value="12:00:00">12:00 AM</option>
-                            <option value="13:00:00">01:00 PM</option>
-                            <option value="14:00:00">02:00 PM</option>
-                            <option value="15:00:00">03:00 PM</option>
-                            <option value="16:00:00">04:00 PM</option>
-                            <option value="17:00:00">05:00 PM</option>
-                            <option value="18:00:00">06:00 PM</option>
-                            <option value="19:00:00">07:00 PM</option>
-                            <option value="20:00:00">08:00 PM</option>
-                            <option value="21:00:00">09:00 PM</option>
-                            <option value="22:00:00">10:00 PM</option>
-                            <option value="23:00:00">11:00 PM</option>
-                            <option value="24:00:00">12:00 PM</option>
-                        </select>
-                    </div>
+                        <div className='checkinTime'>
+                            <label htmlFor="checkinTime" className='h4'>Indique a sua hora prevista de chegada</label>
+                            <select name="time" value={arrivalHour} id="selectTime" className='selectTimeStyle' onChange={(e) => setArrivalHour(e.target.value)}>
+                                <option value="Selecione a data e hora de chegada">Selecione a data e hora de chegada</option>
+                                <option value="01:00:00">01:00 AM</option>
+                                <option value="02:00:00">02:00 AM</option>
+                                <option value="03:00:00">03:00 AM</option>
+                                <option value="04:00:00">04:00 AM</option>
+                                <option value="05:00:00">05:00 AM</option>
+                                <option value="06:00:00">06:00 AM</option>
+                                <option value="07:00:00">07:00 AM</option>
+                                <option value="08:00:00">08:00 AM</option>
+                                <option value="09:00:00">09:00 AM</option>
+                                <option value="10:00:00">10:00 AM</option>
+                                <option value="11:00:00">11:00 AM</option>
+                                <option value="12:00:00">12:00 AM</option>
+                                <option value="13:00:00">01:00 PM</option>
+                                <option value="14:00:00">02:00 PM</option>
+                                <option value="15:00:00">03:00 PM</option>
+                                <option value="16:00:00">04:00 PM</option>
+                                <option value="17:00:00">05:00 PM</option>
+                                <option value="18:00:00">06:00 PM</option>
+                                <option value="19:00:00">07:00 PM</option>
+                                <option value="20:00:00">08:00 PM</option>
+                                <option value="21:00:00">09:00 PM</option>
+                                <option value="22:00:00">10:00 PM</option>
+                                <option value="23:00:00">11:00 PM</option>
+                                <option value="24:00:00">12:00 PM</option>
+                            </select>
+                        </div>
+                    </section>
                 </section>
-            </section>
 
-            <section className='bookingDetails'>
+                <section className='bookingDetails'>
 
-                <section className='datailsCard'>
-                    <h1 className='h1 '>Detalhe da reserva</h1>
+                    <section className='datailsCard'>
+                        <h1 className='h1 '>Detalhe da reserva</h1>
 
-                    <div className='bookingDetailsContainer'>
-                        <img src={productData.imagens[0].url} className='bookingImage' />
-                        <section className='bookingDetailsSection'>
-                            <div className='titleText'>
-                                <p className='h4'>Hotel</p>
-                                <p className='h1'>{productData.nome}</p>
-                                <StarRate rate={productData.estrelas} />
-                            </div>
+                        <div className='bookingDetailsContainer'>
+                            <img src={productData.imagens[0].url} className='bookingImage' />
+                            <section className='bookingDetailsSection'>
+                                <div className='titleText'>
+                                    <p className='h4'>Hotel</p>
+                                    <p className='h1'>{productData.nome}</p>
+                                    <StarRate rate={productData.estrelas} />
+                                </div>
 
-                            <div className="locationText">
-                                <MapPin className="mapPinStyle" size={22} color="#545776" weight="fill" />
-                                <p className="text-normal">{productData.localizacao.endereco}</p>
-                            </div>
+                                <div className="locationText">
+                                    <MapPin className="mapPinStyle" size={22} color="#545776" weight="fill" />
+                                    <p className="text-normal">{productData.localizacao.endereco}</p>
+                                </div>
 
-                            <div className='checkDates'>
-                                <hr />
-                                <p>Check in - {startDate}</p>
-                                <hr />
-                                <p>Check out - {endDate}</p>
-                            </div>
+                                <div className='checkDates'>
+                                    <hr />
+                                    <p>Check in - {startDate}</p>
+                                    <hr />
+                                    <p>Check out - {endDate}</p>
+                                </div>
 
-                            <button className='btnBooking' type='submit'>Realizar a reserva</button>
-                        </section>
-                    </div>
+                                <button className='btnBooking' type='submit'>Realizar a reserva</button>
+                            </section>
+                        </div>
+                    </section>
                 </section>
-            </section>
-        </form>
-
+            </form>
+        </div>
     )
 }

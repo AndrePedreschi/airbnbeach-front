@@ -8,6 +8,8 @@ import { Map } from "../Components/Map";
 import { gradeStatus } from '../utils/gradeStatus'
 import { breakLines } from '../utils/breakLines'
 import Litepicker from 'litepicker';
+import { useAuth } from "../contexts/auth";
+
 
 import {
     Copy,
@@ -40,29 +42,26 @@ import {
     TwitterIcon,
     WhatsappIcon,
 } from "react-share";
+import { Loading } from './Loading';
 
 
 export function ProductDetail() {
     const productData = useOutletContext();
-    const [caracteristicas, setCaracteristicas] = useState(productData.caracteristicas.map((item) => item.icone));
+    const [caracteristicas, setCaracteristicas] = useState(productData.caracteristicas.map((item) => item.nome));
     const [modal, setModal] = useState(false);
     const [share, setShare] = useState(false);
     const [shareUrl, setShareUrl] = useState('');
     const [datePicker, setDatePicker] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const litepickerRef = useRef(null);
-
+    const { loading } = useAuth();
 
     useEffect(() => {
-        if (productData !== undefined) {
-            setTimeout(() => {
-                createDatepicker()
-            }, 1);
-        }
-    }, [productData])
+        createDatepicker()
+    }, [])
 
 
-    function createDatepicker() {
+    function createDatepicker(datas) {
         if (datePicker) {
             litepickerRef.current.destroy()
         }
@@ -73,17 +72,16 @@ export function ProductDetail() {
                 element: document.getElementById('datepicker'),
                 numberOfMonths: 2,
                 numberOfColumns: 2,
-                //mobileFriendly: true,
-                //splitView: true,
                 selectForward: true,
-                //singleMode: false,
-                singleMode: true,
+                singleMode: false,
                 lang: "pt-BR",
                 format: "DD MMM",
                 autoApply: true,
                 autoClose: true,
                 tooltipText: { "one": "dia", "other": "dias" },
                 inlineMode: true,
+                minDate: new Date(),
+
 
                 lockDaysFilter: (date1, date2, pickedDates) => {
                     if (productData.lockedDates && productData.lockedDates !== undefined) {
@@ -110,8 +108,10 @@ export function ProductDetail() {
         return () => {
             window.removeEventListener('resize', handleWindowResize);
         };
-    });
+    }, []);
+
     useEffect(() => {
+
         setTimeout(() => {
             if (windowWidth < 640) {
                 litepickerRef.current.setOptions({ numberOfColumns: 1 });
@@ -121,14 +121,40 @@ export function ProductDetail() {
                 litepickerRef.current.setOptions({ numberOfMonths: 2 });
             }
         }, 2);
+
     }, [windowWidth])
 
     useEffect(() => {
         setShareUrl(window.location.href)
     }, [])
 
-    function copyUrl(url){
-        navigator.clipboard.writeText(url);
+    function unsecuredCopyToClipboard(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text; document.body.appendChild(textArea);
+        textArea.focus(); textArea.select();
+
+        try {
+            document.execCommand('copy')
+        } catch (err) {
+            console.error('Unable to copy to clipboard', err)
+        }
+
+        document.body.removeChild(textArea)
+    };
+
+    function copyUrl() {
+        let url = window.location.href
+
+        if (window.isSecureContext && navigator.clipboard) {
+            navigator.clipboard.writeText(url);
+        } else {
+            unsecuredCopyToClipboard(url);
+        }
+    }
+
+    function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }
 
 
@@ -161,8 +187,13 @@ export function ProductDetail() {
             </section>
 
             <section className="shareSection">
-                <HeartIcon className='heartIconStyle' id={productData.id} border={true} favorite={productData.favorito} />
-                <ShareNetwork size={24} color="#000000" className='shareButton' onClick={() => setShare(true)} />
+                {/* <HeartIcon
+                    className='heartIconStyle'
+                    id={productData.id}
+                    border={true}
+                //favorite={productData.favorito}
+                /> */}
+                <ShareNetwork size={24} color="#000000" className='shareButton' onClick={setShare} />
 
                 {share &&
                     <div className="shareContainer" >
@@ -192,7 +223,7 @@ export function ProductDetail() {
             </section>
 
             <section className="imgsSection">
-                <div className={productData.imagens.length < 5 ? "desktopStyle2": "desktopStyle"}>
+                <div className={productData.imagens.length < 5 ? "desktopStyle2" : "desktopStyle"}>
                     {productData.imagens[0] && <img className="img0" src={productData.imagens[0].url} />}
                     {productData.imagens[1] && <img className="img1" src={productData.imagens[1].url} />}
                     {productData.imagens[2] && <img className="img2" src={productData.imagens[2].url} />}
@@ -221,32 +252,36 @@ export function ProductDetail() {
                 <hr />
 
                 <div className="diferentialItens">
-                    {caracteristicas.includes('wi-fi') && <p className="iconsText text-normal"><WifiHigh size={20} color="#383b58" /> - Wi-Fi</p>}
-                    {caracteristicas.includes('pool') && <div className="iconsText text-normal"><p className='poolIcon'></p> - Piscina</div>}
-                    {caracteristicas.includes('pets') && <p className="iconsText text-normal"><PawPrint size={20} color="#383b58" weight="fill" /> - Pet friendly</p>}
-                    {caracteristicas.includes('tv') && <p className="iconsText text-normal"><Television size={20} color="#383b58" /> - Televisão</p>}
-                    {caracteristicas.includes('kitchen') && <p className="iconsText text-normal"><CookingPot size={20} color="#383b58" /> - Cozinha</p>}
-                    {caracteristicas.includes('parking') && <p className="iconsText text-normal"><Car size={20} color="#383b58" /> - Estacionamento</p>}
-                    {caracteristicas.includes('jacuzzi') && <p className="iconsText text-normal"><Bathtub size={20} color="#383b58" /> - Jacuzzi</p>}
-                    {caracteristicas.includes('air-conditioning') && <p className="iconsText text-normal"><Wind size={20} color="#383b58" /> - Ar condicionado</p>}
+                    {caracteristicas.includes('Wi-Fi') && <p className="iconsText text-normal"><WifiHigh size={20} color="#383b58" /> - Wi-Fi</p>}
+                    {caracteristicas.includes('Piscina') && <div className="iconsText text-normal"><p className='poolIcon'></p> - Piscina</div>}
+                    {caracteristicas.includes('Pets') && <p className="iconsText text-normal"><PawPrint size={20} color="#383b58" weight="fill" /> - Pet friendly</p>}
+                    {caracteristicas.includes('TV') && <p className="iconsText text-normal"><Television size={20} color="#383b58" /> - Televisão</p>}
+                    {caracteristicas.includes('Cozinha') && <p className="iconsText text-normal"><CookingPot size={20} color="#383b58" /> - Cozinha</p>}
+                    {caracteristicas.includes('Estacionamento') && <p className="iconsText text-normal"><Car size={20} color="#383b58" /> - Estacionamento</p>}
+                    {caracteristicas.includes('Jacuzzi') && <p className="iconsText text-normal"><Bathtub size={20} color="#383b58" /> - Jacuzzi</p>}
+                    {caracteristicas.includes('Ar-condicionado') && <p className="iconsText text-normal"><Wind size={20} color="#383b58" /> - Ar condicionado</p>}
                 </div>
             </section>
 
             <section className="mapSection">
                 <h1 className="h1">Localização</h1>
-                <Map location={JSON.parse(productData.localizacao.coordenadas)} downtown={JSON.parse(productData.localizacao.centro)} address={productData.localizacao.endereco} />
+                <Map location={JSON.parse(productData.localizacao.coordenadas !== "[undefined, undefined]" ? productData.localizacao.coordenadas : productData.localizacao.centro)} downtown={JSON.parse(productData.localizacao.centro)} address={productData.localizacao.endereco} />
             </section>
 
             <section className="availabilitySection">
                 <h1 className="h1">Datas disponíveis</h1>
+
                 <section className="datePickerSection">
                     <div className="datepickerStyle" id='datepicker' ref={litepickerRef} />
                     <section className='initReserveSection'>
                         <p className='text-normal paragraphText'>Adicione as datas da sua viagem para obter preços exatos</p>
-                        <Link to={`/product/${productData.id}/booking`} className='btnInitReserve'>Iniciar Reserva</Link>
+                        <Link to={`/product/${productData.id}/booking`} className='btnInitReserve' onClick={topFunction}>Iniciar Reserva</Link>
                     </section>
                 </section>
+
+                
             </section>
+            <Loading loading={loading} />
         </section>
     )
 }

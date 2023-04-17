@@ -3,24 +3,21 @@ import { Card } from "../Components/Card";
 import { SearchBar } from '../Components/SearchBar'
 import { useEffect, useState } from 'react';
 import axios from "axios";
-//import ReactPaginate from 'react-paginate';
+import { toast } from 'react-toastify';
 import { PaginationControl } from 'react-bootstrap-pagination-control';
-
-
-
 import { useAuth } from "../contexts/auth";
+import { Loading } from '../Components/Loading';
+
 
 export function Home() {
-    const { urlBase, auth } = useAuth();
+    const { urlBase, loading, homeProducts, loadingWait } = useAuth();
     const [categorias, setCategorias] = useState('')
-    const [produtos, setProdutos] = useState('')
-    const [produtosFiltrados, setProdutosFiltrados] = useState('')
-    //const [pageCount, setPageCount] = useState(0);
+    const [produtos, setProdutos] = useState(homeProducts)
+    const [produtosFiltrados, setProdutosFiltrados] = useState(homeProducts)
     const [itemsPerPage, setItemsPerPage] = useState(4);
     const [itemOffset, setItemOffset] = useState(0);
     const [currentItems, setCurrentItems] = useState('');
     const [page, setPage] = useState(1)
-
 
     useEffect(() => {
         axios.get(`${urlBase}/categorias`).then(
@@ -43,23 +40,29 @@ export function Home() {
                 if (error.code === 'ERR_NETWORK') return toast.error('Ocorreu um erro, por favor recarregue a página.');
             }
         )
+
+        /* let apiKey = 'AIzaSyBiepDOJfdSFAnqL9wo8LKuOx6w2mS5DMQ'
+        let endereco ='Rua Antonio Correia, 199, Santo André, SP'
+        axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${endereco}&key=${apiKey}`).then(
+            (response) => {
+                console.log(response);
+                console.log(response.data.results[0].geometry.location.lat)
+                console.log(response.data.results[0].geometry.location.lng)
+            },
+            (error) => {
+                console.log(error);
+                if (error.code === 'ERR_NETWORK') return toast.error('Ocorreu um erro, por favor recarregue a página.');
+            }
+        ) */
+
+
     }, [])
 
-
-    //paginação
-    /* useEffect(() => {
-        const endOffset = itemOffset + itemsPerPage;
-        setCurrentItems(produtosFiltrados.slice(itemOffset, endOffset));
-        setPageCount(Math.ceil(produtosFiltrados.length / itemsPerPage));
-        //setItemOffset(0);
-    }, [itemOffset, produtosFiltrados]);
     useEffect(() => {
-        //const endOffset = itemOffset + itemsPerPage;
-        //setCurrentItems(produtosFiltrados.slice(itemOffset, endOffset));
-        //setPageCount(Math.ceil(produtosFiltrados.length / itemsPerPage));
-        setItemOffset(0);
-    }, [produtosFiltrados]); */
-
+        setProdutos(homeProducts);
+        setProdutosFiltrados(homeProducts)
+    }, [homeProducts])
+    
 
     useEffect(() => {
         const endOffset = itemOffset + itemsPerPage;
@@ -70,13 +73,6 @@ export function Home() {
         setItemOffset(0);
         setPage(1)
     }, [produtosFiltrados]);
-
-
-
-    /* const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % produtosFiltrados.length;
-        setItemOffset(newOffset);
-    }; */
 
 
     function filterCategory(categoryId) {
@@ -98,6 +94,7 @@ export function Home() {
 
     return (
         <main className="mainStyle">
+
 
             <SearchBar filteredData={(valueReturned) => setProdutosFiltrados(valueReturned)} />
 
@@ -147,32 +144,6 @@ export function Home() {
                     </div>
                 </div>
 
-                {/* <ReactPaginate
-                    className="react-paginate"
-                    nextLabel=">"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={2}
-                    marginPagesDisplayed={0}
-                    pageCount={pageCount}
-                    previousLabel="<"
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link"
-                    breakLabel="..."
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link"
-                    containerClassName="pagination"
-                    activeClassName="selected"
-                    renderOnZeroPageCount={null}
-                //onClick={console.log('mudou')}
-                //forcePage={1}
-                //onPageChange={console.log('mudou')}
-                //initialPage={0}
-                /> */}
-
                 <PaginationControl
                     page={page}
                     between={3}
@@ -180,13 +151,15 @@ export function Home() {
                     limit={itemsPerPage}
                     changePage={(page) => {
                         setPage(page);
-                        setItemOffset((page-1)*itemsPerPage % produtosFiltrados.length);
+                        setItemOffset((page - 1) * itemsPerPage % produtosFiltrados.length);
+                        loadingWait(200);
                     }}
                     ellipsis={1}
                 />
 
             </section>
 
+            <Loading loading={loading} />
         </main>
 
     )

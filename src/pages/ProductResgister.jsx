@@ -8,22 +8,21 @@ import { Plus, CaretLeft } from 'phosphor-react'
 import { useAuth } from "../contexts/auth";
 import { DragAndDrop } from '../Components/DragAndDrop';
 import successIcon from '../assets/success.gif'
+import { Loading } from '../Components/Loading';
 
 
 export function ProductRegister() {
     const navigate = useNavigate();
-    const { urlBase, auth } = useAuth();
+    const { urlBase, auth, loading } = useAuth();
     const [show, setShow] = useState(true);
     const [status, setStatus] = useState({
         type: '',
         message: ''
     })
     const [cepDados, setCepDados] = useState('');
-
     const [posicaoEndereco, setPosicaoEndereco] = useState('');
     const [posicaoCentro, setPosicaoCentro] = useState('');
     const [posicaoDistancia, setDistancia] = useState();
-
     const [nomePropriedade, setNomePropriedade] = useState("");
     const [tituloPropriedade, setTituloPropriedade] = useState("");
     const [categoria, setCategoria] = useState('');
@@ -36,14 +35,6 @@ export function ProductRegister() {
     const [politicas, setPoliticas] = useState({});
     const [urlImagem, setUrlImagem] = useState([]);
     const [inputImagemCount, setInputImagemCount] = useState(['']);
-
-    /* useEffect(() => {
-        console.log(cidade);
-
-    }, [cidade]) */
-
-
-
 
 
 
@@ -74,15 +65,17 @@ export function ProductRegister() {
     }, [cep])
 
     function getLocalizacao() {
+
         let enderecoCentro = `${cepDados.localidade}, ${cepDados.uf}`
+        
 
         //https://brasilapi.com.br/docs#tag/CEP-V2
-        axios.get(`https://brasilapi.com.br/api/cep/v2/${cepDados.cep}`).then((response) => {
+        /* axios.get(`https://brasilapi.com.br/api/cep/v2/${cepDados.cep}`).then((response) => {
             setPosicaoEndereco({
                 lat: response.data.location.coordinates.latitude,
                 long: response.data.location.coordinates.longitude
             })
-        }, (error) => { });
+        }, (error) => { }); */
 
         axios.get(`https://nominatim.openstreetmap.org/search?q=${enderecoCentro}&limit=1&format=json`).then((response) => {
             setPosicaoCentro({
@@ -90,6 +83,41 @@ export function ProductRegister() {
                 long: response.data[0].lon
             })
         }, (error) => { });
+
+
+        let enderecoRecontruido =`${endereco.slice(0,endereco.lastIndexOf(',')+1)} ${numeroPropriedade},${endereco.slice(endereco.lastIndexOf(',')+1, endereco.length)}`
+
+
+        let apiKey = 'AIzaSyBiepDOJfdSFAnqL9wo8LKuOx6w2mS5DMQ'
+        //let endereco ='Rua Antonio Correia, 199, Santo André, SP'
+        
+        axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${enderecoRecontruido}&key=${apiKey}`).then(
+            (response) => {
+                //console.log(response);
+                setPosicaoEndereco({
+                    lat: response.data.results[0].geometry.location.lat,
+                    long: response.data.results[0].geometry.location.lng
+                })
+                console.log(response.data.results[0].geometry.location.lat)
+                console.log(response.data.results[0].geometry.location.lng)
+            },
+            (error) => {
+                console.log(error);
+                if (error.code === 'ERR_NETWORK') return toast.error('Ocorreu um erro, por favor recarregue a página.');
+            }
+        )
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     useEffect(() => {
@@ -382,7 +410,7 @@ export function ProductRegister() {
 
     return (
         <section className='productRegisterContainer'>
-
+            <Loading loading={loading} />
             <section className="headerSection">
                 <div className="headerText">
                     <p className='title h1'>Administração</p>
@@ -414,7 +442,7 @@ export function ProductRegister() {
                         <label htmlFor="categoria" className="text-small">Categoria</label>
                         <select name="categoria" value={categoria} id="categoria" className='selectCategoriaStyle' onChange={(e) => setCategoria(e.target.value)} onBlur={() => validate('categoria')}>
                             <option className='optionStyle' value={'Selecione a categoria'}>Selecione a categoria</option>
-                            <option value={'Hóteis'}>Hotel</option>
+                            <option value={'Hotéis'}>Hotel</option>
                             <option value={'Hostels'}>Hostel</option>
                             <option value={'Apartamentos'}>Apartamento</option>
                             <option value={'Pousadas'}>Pousada</option>

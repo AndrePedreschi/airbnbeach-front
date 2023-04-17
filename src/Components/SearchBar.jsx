@@ -70,7 +70,6 @@ export function SearchBar({ filteredData }) {
     useEffect(() => {
         createDatepicker()
 
-        //Puxando as cidades
         axios.get(`${urlBase}/cidades`).then((response) => {
             let arrayRequest = []
             response.data.forEach(item => {
@@ -84,7 +83,6 @@ export function SearchBar({ filteredData }) {
 
             //setArrayCidades([...new Set(  response.data.map((item) => {item.nome}) )])
             //setArrayCidades([...new Set(  arrayRequest.map((item) => {item}) )])
-
 
         }, (error) => {
             console.log(error.code);
@@ -116,36 +114,24 @@ export function SearchBar({ filteredData }) {
 
         if (!validateForm()) return;
 
-
         let startDate = litepickerRef.current.options.startDate !== null ? litepickerRef.current.options.startDate.dateInstance.toISOString().slice(0, 10) : ''
         let endDate = litepickerRef.current.options.endDate !== null ? litepickerRef.current.options.endDate.dateInstance.toISOString().slice(0, 10) : ''
         let url
 
         if ((city !== undefined & city !== null && city.length > 1) && (startDate !== '' && endDate !== '')) {
-
-            //url = `dataInicial=${startDate}&dataFinal=${endDate}&cidade=${city}`
             url = `/search?dataInicial=${startDate}&dataFinal=${endDate}&cidade=${city}`
 
         } else if (startDate !== '' && endDate !== '') {
-
-            //url = `dataInicial=${startDate}&dataFinal=${endDate}`
-            //url = `/datas?dataInicial=${startDate}&dataFinal=${endDate}`
             url = `/datasDisponiveis?dataInicial=${startDate}&dataFinal=${endDate}`
-
         } else if (city !== undefined && city !== null && city.length > 1) {
-
-            //url = `cidade=${city}`
             url = `/cidade?nomeCidade=${city}`
         }
 
-
         axios.get(`${urlBase}/produtos${url}`).then((response) => {
-            console.log(response);
 
             filteredData(response.data)
             toast.success("Próximo destino econtrado!")
         }, (error) => {
-            //console.log(error.response.status);
             if (error.response.status == 401) return toast.error('Nenhuma acomodação encontrada para essa cidade');
             if (error.response.status == 403) return toast.error('Recarregue a página e tente novamente.');
             if (error.response.status == 404) return toast.error('Erro ao preencher o formuário. Recarregue a página e tente novamente.');

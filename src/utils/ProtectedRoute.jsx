@@ -18,7 +18,7 @@ export function ProtectedRoute({
                 type === 'toast' ? toast.error(msg) :
 
                     Swal.fire({
-                        title: msg,
+                        text: msg,
                         width: '360',
                         color: '#545776',
                         icon: 'error',
@@ -38,7 +38,7 @@ export function ProtectedRoute({
                 type === 'toast' ? toast.error(msg) :
 
                     Swal.fire({
-                        title: msg,
+                        text: msg,
                         width: '360',
                         color: '#545776',
                         icon: 'error',

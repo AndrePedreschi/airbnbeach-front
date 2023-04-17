@@ -53,7 +53,12 @@ export function Map2({ location, downtown, address }) {
 
     return (
         <>
-            <div id="map" className='mapStyle'></div>
+            {location !== "[undefined, undefined]" && downtown !== "[undefined, undefined]" ?
+                <div id="map" className='mapStyle'></div>
+
+                :
+                <p>Ocorreu um erro com mapa da propriedade, por favor entre em contato com o suporte</p>
+            }
         </>
     )
 }

@@ -7,6 +7,9 @@
     //align-items: flex-start;
 
     //padding-top: 2rem;
+    //overflow-x: visible;
+
+
 
     .headerSection {
         background-color: var(--coral-light);
@@ -22,60 +25,69 @@
         }
     }
 
+    .tableSection {
+        width: 100%;
+        overflow: auto;
 
-    table {
-        margin: 2rem auto;
-        max-width: 80%;
-        border-collapse: collapse;
-        
-        tr {
-            
-            th {
-                border-right: 1px solid #ddd;
-                border-bottom: 1px solid #ddd;
-                padding: 0.5rem;
-                text-align: center;
-                background-color: var(--green-light);
-                color: white;
 
-                &:nth-child(1){
-                    border-top-left-radius: 8px;
+
+        table {
+            margin: 2rem auto;
+            max-width: 80%;
+            border-collapse: collapse;
+
+
+            tr {
+
+                th {
+                    border-right: 1px solid #ddd;
+                    border-bottom: 1px solid #ddd;
+                    padding: 0.5rem;
+                    text-align: center;
+                    background-color: var(--green-light);
+                    color: white;
+
+                    &:nth-child(1) {
+                        border-top-left-radius: 8px;
+                    }
+
+                    &:nth-child(5) {
+                        border-top-right-radius: 8px;
+                    }
                 }
-                &:nth-child(5){
-                    border-top-right-radius: 8px;
+
+
+                td {
+                    border: 1px solid #ddd;
+                    padding: 0.5rem;
+                    color: var(--coral-light);
+
                 }
-            }
 
-
-            td {
-                border: 1px solid #ddd;
-                padding: 0.5rem;
-                color: var(--coral-light);
-                
-            }
-
-            .horasStyle{
-                text-align: center;
-            }
-
-            .nomeProduto {
-                text-decoration: none;
-                color: var(--coral-light);
-            }
-
-            .lixeira {
-                text-align: center;
-
-                .lixeiraIcone {
-                    cursor: pointer;
+                .horasStyle {
+                    text-align: center;
                 }
-            }
 
-            &:nth-child(even) {
-                background-color: #f2f2f2;
-            }
-            &:hover {
-                background-color: #ddd;
+                .nomeProduto {
+                    text-decoration: none;
+                    color: var(--coral-light);
+                }
+
+                .lixeira {
+                    text-align: center;
+
+                    .lixeiraIcone {
+                        cursor: pointer;
+                    }
+                }
+
+                &:nth-child(even) {
+                    background-color: #f2f2f2;
+                }
+
+                &:hover {
+                    background-color: #ddd;
+                }
             }
         }
     }
@@ -91,7 +103,7 @@
         color: var(--coral-light);
 
         .sadText {
-            
+
             font-style: oblique;
             font-weight: 500;
             font-size: 1.5rem; //24px

@@ -86,20 +86,24 @@
                     cursor: pointer;
                     padding: 0.2rem 0.5rem;
                     transition: 0.2s;
+                    background-color: #dbdbdb;
 
-                    
+                    &:active {
+                        -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+                        -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+                        box-shadow: inset 0px 0px 5px #c1c1c1;
+                        outline: none;
 
-                    .copyButton {
-                        transition: 0.2s;
-                        transition: transform 0.4s ease-in-out;
-                        
-                        &:active{
-                            //transition: , transform 1s;
-                            transform: rotate(360deg) ;
+                        .copyButton {
+                            animation-duration: 0.5s;
+                            transition-timing-function: ease-in;
+                            animation-fill-mode: both;
+                            animation-name: rotate;
                         }
-                        &:hover {
-                            color: rgb(211, 74, 74);
-                        }
+                    }
+
+                    &:hover {
+                        background-color: #e5e5e5;
                     }
                 }
             }
@@ -111,7 +115,6 @@
                 align-items: center;
                 gap: 0.25rem;
                 flex-wrap: wrap;
-
             }
         }
     }
@@ -307,6 +310,10 @@
     .mapSection {
         padding: 1rem 2.5rem;
         color: var(--navy-light);
+
+        h1 {
+            margin-bottom: 0.5rem;
+        }
     }
 
     .availabilitySection {
@@ -314,7 +321,6 @@
         padding-bottom: 1.5rem;
         background-color: #e6e5e5;
         height: auto;
-
 
         .h1 {
             margin-bottom: 1rem;
@@ -329,31 +335,31 @@
             align-items: center;
             width: 100%;
 
-            
             .datepickerStyle {
                 border: none;
                 width: 100% !important;
                 height: 100% !important;
-        
+
+
                 .litepicker {
                     width: 100% !important;
                     height: fit-content !important;
                     position: unset !important;
-         
+
                     .container__main {
                         width: 100% !important;
                         height: fit-content !important;
-        
+
                         .container__months .columns-2 {
                             width: 100% !important;
                         }
-        
+
                         .container__months {
                             width: 100% !important;
                             height: fit-content !important;
                             flex-wrap: nowrap;
                             font-size: 20px;
-        
+
                             .month-item {
                                 width: 100% !important;
                                 height: 100% !important;
@@ -369,23 +375,25 @@
         
                                     .button-next-month {}
                                 } */
-        
+
                                 /* .month-item-weekdays-row {
                                     div {}
                                 } */
-        
+
                                 .container__days {
                                     width: 100% !important;
+
                                     //.day-item .is-locked{}
                                     //.day-item {}
-                                    div{
-                                       // height: 60px;
+                                    div {
+                                        // height: 60px;
                                         width: calc(100%/7);
                                     }
                                 }
                             }
                         }
                     }
+
                     //.container__tooltip {}
                 }
             }
@@ -496,7 +504,8 @@
         .imgsSection {
             padding: 0;
 
-            .desktopStyle, .desktopStyle2 {
+            .desktopStyle,
+            .desktopStyle2 {
                 display: none;
             }
 
@@ -547,10 +556,13 @@
         .shareSection {
             width: fit-content;
             position: absolute;
-            top: 30rem;
+            top: 31.5rem;
             right: 0px;
+            flex-direction: column;
             padding-right: 0.5rem;
             border: none;
+            height: fit-content;
+            gap: 0;
         }
 
         .diferentialSection {
@@ -559,6 +571,6 @@
             }
         }
 
-        
+
     }
 }

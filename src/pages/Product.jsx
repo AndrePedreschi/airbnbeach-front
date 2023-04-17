@@ -1,5 +1,3 @@
-import { produtosJson } from '/public/cardsMock.js'
-
 import "./Product.scss";
 import { useState, useEffect } from "react";
 import { Link, useParams, Outlet, useLocation } from 'react-router-dom'
@@ -9,14 +7,13 @@ import Swal from 'sweetalert2'
 import { toast } from 'react-toastify';
 import { CaretLeft } from 'phosphor-react'
 import { useAuth } from "../contexts/auth";
+import { Loading } from '../Components/Loading';
 
 export function Product() {
     const { id } = useParams()
     const [productData, setProductData] = useState('');
     const location = useLocation();
-    const { urlBase, auth } = useAuth();
-
-
+    const { urlBase, auth, loading } = useAuth();
 
     function popularLockedDatesArr(listaDeReservas) {
         const lockedDatesArr = [];
@@ -38,17 +35,21 @@ export function Product() {
         axios.get(`${urlBase}/produtos/${id}`).then((response) => {
             let dados = response.data
 
-            setProductData(response.data)
+            //setProductData(response.data)
             axios.defaults.headers.get['Authorization'] = `Bearer ${auth}`;
             axios.get(`${urlBase}/reservas/por_produto/${id}`).then((response) => {
-
+                
                 let arrayDeDatas = []
 
                 response.data.forEach((item)=>{
+
                     arrayDeDatas.push([item.dataInicial, item.dataFinal])
                 })
                 
                 setProductData({ ...dados, ...{ lockedDates: popularLockedDatesArr(arrayDeDatas) } })
+
+
+
             }, (error) => {
                 if (error.status == 404) return toast.error('Houve um problema, recarregue a página');
                 if (error.code === 'ERR_NETWORK') return toast.error('Verifique a sua conexão com a internet.');
@@ -67,7 +68,7 @@ export function Product() {
 
     return (
         <>
-            {productData !== '' &&
+            {productData !== '' ?
                 <section className="productContainer">
                     <section className="headerSection">
                         <div className="headerText">
@@ -111,6 +112,8 @@ export function Product() {
                         </section>
                     </section>
                 </section>
+                :
+                <Loading loading={true} />
             }
         </>
     )
