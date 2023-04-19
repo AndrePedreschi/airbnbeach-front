@@ -5,9 +5,6 @@ import 'leaflet-fullscreen/dist/Leaflet.fullscreen.js';
 import mapIconUrl from '../assets/map-icon.png';
 import mapIconShadowUrl from '../assets/map-icon-shadow.png';
 
-
-
-
 export function Map2({ location, downtown, address }) {
 
     setTimeout(() => {
@@ -49,13 +46,10 @@ export function Map2({ location, downtown, address }) {
 
     }, 10);
 
-
-
     return (
         <>
             {location !== "[undefined, undefined]" && downtown !== "[undefined, undefined]" ?
                 <div id="map" className='mapStyle'></div>
-
                 :
                 <p>Ocorreu um erro com mapa da propriedade, por favor entre em contato com o suporte</p>
             }

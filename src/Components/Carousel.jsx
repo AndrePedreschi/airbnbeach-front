@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "swiper/css/bundle";
 import "./Carousel.scss";
 

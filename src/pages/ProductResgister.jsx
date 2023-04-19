@@ -1,7 +1,7 @@
 import './ProductResgister.scss'
 import { distCalc } from "../utils/distCalc";
-import { useState, useEffect, useRef } from 'react'
-import { Link, useParams, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios";
 import Swal from 'sweetalert2'
 import { Plus, CaretLeft } from 'phosphor-react'
@@ -37,7 +37,6 @@ export function ProductRegister() {
     const [inputImagemCount, setInputImagemCount] = useState(['']);
 
 
-
     useEffect(() => {
         setCep(cep.replace(/\D/g, "").replace(/^(\d{5})(\d{3})+?$/, "$1-$2").slice(0, 9))
         if (cep.length > 9) {
@@ -70,12 +69,12 @@ export function ProductRegister() {
         
 
         //https://brasilapi.com.br/docs#tag/CEP-V2
-        /* axios.get(`https://brasilapi.com.br/api/cep/v2/${cepDados.cep}`).then((response) => {
+        axios.get(`https://brasilapi.com.br/api/cep/v2/${cepDados.cep}`).then((response) => {
             setPosicaoEndereco({
                 lat: response.data.location.coordinates.latitude,
                 long: response.data.location.coordinates.longitude
             })
-        }, (error) => { }); */
+        }, (error) => { });
 
         axios.get(`https://nominatim.openstreetmap.org/search?q=${enderecoCentro}&limit=1&format=json`).then((response) => {
             setPosicaoCentro({
@@ -85,39 +84,20 @@ export function ProductRegister() {
         }, (error) => { });
 
 
-        let enderecoRecontruido =`${endereco.slice(0,endereco.lastIndexOf(',')+1)} ${numeroPropriedade},${endereco.slice(endereco.lastIndexOf(',')+1, endereco.length)}`
-
-
-        let apiKey = 'AIzaSyBiepDOJfdSFAnqL9wo8LKuOx6w2mS5DMQ'
-        //let endereco ='Rua Antonio Correia, 199, Santo André, SP'
+        //let apiKey = 'AIzaSyBiepDOJfdSFAnqL9wo8LKuOx6w2mS5DMQ'
+        //let enderecoRecontruido =`${endereco.slice(0,endereco.lastIndexOf(',')+1)} ${numeroPropriedade},${endereco.slice(endereco.lastIndexOf(',')+1, endereco.length)}`
         
-        axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${enderecoRecontruido}&key=${apiKey}`).then(
+        /* axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${enderecoRecontruido}&key=${apiKey}`).then(
             (response) => {
-                //console.log(response);
                 setPosicaoEndereco({
                     lat: response.data.results[0].geometry.location.lat,
                     long: response.data.results[0].geometry.location.lng
                 })
-                console.log(response.data.results[0].geometry.location.lat)
-                console.log(response.data.results[0].geometry.location.lng)
             },
             (error) => {
-                console.log(error);
                 if (error.code === 'ERR_NETWORK') return toast.error('Ocorreu um erro, por favor recarregue a página.');
             }
-        )
-
-
-
-
-
-
-
-
-
-
-
-
+        ) */
     }
 
     useEffect(() => {
@@ -182,9 +162,6 @@ export function ProductRegister() {
                 setShow(true)
             )
         }
-
-
-
     }
 
     function validate(input) {
@@ -286,7 +263,6 @@ export function ProductRegister() {
                 if (urlImagem.length === 0) return setStatus({ type: `urlImagemError0`, message: 'Preencha o campo com o link de uma imagem' });
                 break;
         }
-
         return true;
     }
 
@@ -368,7 +344,6 @@ export function ProductRegister() {
         }else{
             return
         }
-
     }
 
 
@@ -377,7 +352,6 @@ export function ProductRegister() {
         e.preventDefault();
         if (!validate() || show) return;
 
-        
         let arrayCidadeBanco=[]
         axios.get(`${urlBase}/cidades`).then((response) => {
            
@@ -405,7 +379,6 @@ export function ProductRegister() {
         setInputImagemCount([...inputImagemCount, ...['']])
         setStatus('')
     }
-
 
 
     return (
@@ -630,18 +603,9 @@ export function ProductRegister() {
                         ))}
                         {status.type === `urlImagemContainerError` ? <p className="text-small errorMsg">{status.message}</p> : ""}
                     </section>
-
-
                     <button type='submit' className='btnAdmin'>Cadastrar</button>
-
-
                 </form>
             </section>
-
-
-
         </section>
-
-
     )
 }

@@ -2,7 +2,7 @@ import './ProductDetail.scss'
 import { useState, useEffect, useRef } from "react";
 import { Link, useOutletContext } from 'react-router-dom'
 import { Carousel } from "../Components/Carousel";
-import { HeartIcon } from "../Components/HeartIcon";
+//import { HeartIcon } from "../Components/HeartIcon";
 import { StarRate } from '../Components/StarRate';
 import { Map } from "../Components/Map";
 import { gradeStatus } from '../utils/gradeStatus'

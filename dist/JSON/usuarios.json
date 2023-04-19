@@ -1,0 +1,33 @@
+[
+    {
+        "nome": "Carol",
+        "sobrenome": "Silva",
+        "email": "carol@email.com",
+        "senha": "senha"
+    },
+    {
+        "nome": "Issao",
+        "sobrenome": "Takeushi",
+        "email": "issao@email.com",
+        "senha": "senha"
+    },
+    {
+        "nome": "André",
+        "sobrenome": "Pedreschi",
+        "email": "andre@email.com",
+        "senha": "senha"
+    },
+    {
+        "nome": "Fernando",
+        "sobrenome": "Bade",
+        "email": "fernando@email.com",
+        "senha": "senha"
+    },
+    {
+        "nome": "Daniel",
+        "sobrenome": "Fontoura",
+        "email": "daniel@email.com",
+        "senha": "senha"
+    }
+
+]

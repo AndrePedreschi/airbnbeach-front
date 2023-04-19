@@ -5,9 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/auth";
 import Swal from 'sweetalert2'
 
-
-
-
 export function Sidebar() {
   const { user, auth, userLogout, urlPath, setUrlPath } = useAuth();
   const navigate = useNavigate();
@@ -78,19 +75,19 @@ export function Sidebar() {
               <div className="linksMenuHeaderHolder">
                {/*  {user.papel === "ADMIN" && */}
                   <div className="itensMenuHeader">
-                    <Link to={`/administrador`} className="text-normal itensMenuHeader">Cadastrar local <PlusCircle size={32} color="var(--grey-darkest)" /></Link>
+                    <Link to={`/administrador`} className="text-normal itensMenuHeader" onClick={toggleSidebar}>Cadastrar local <PlusCircle size={32} color="var(--grey-darkest)" /></Link>
                   </div>
                {/*  } */}
 
                 {/* {user.papel !== "ADMIN" && */}
                   <div className="itensMenuHeader">
-                    <Link to={`/reservas`} className="text-normal itensMenuHeader">Ver reservas <CalendarCheck size={32} color="var(--grey-darkest)" />
+                    <Link to={`/reservas`} className="text-normal itensMenuHeader" onClick={toggleSidebar}>Ver reservas <CalendarCheck size={32} color="var(--grey-darkest)" />
                     </Link>
                   </div>
                {/*  } */}
 
                 <div className="itensMenuHeader" onClick={logout}>
-                  <Link className="text-normal itensMenuHeader">Sair <SignOut size={32} color="var(--grey-darkest)" /></Link>
+                  <Link className="text-normal itensMenuHeader" onClick={toggleSidebar}>Sair <SignOut size={32} color="var(--grey-darkest)" /></Link>
 
                 </div>
               </div>

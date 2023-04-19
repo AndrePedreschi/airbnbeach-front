@@ -2,15 +2,13 @@ import './Card.scss'
 import { useState, useEffect } from "react";
 import { convertNumber } from '../utils/convertNumber'
 import { gradeStatus } from '../utils/gradeStatus'
-import { toast } from 'react-toastify';
 import { X, MapPin, WifiHigh, PawPrint, Television, CookingPot, Car, Bathtub, Wind } from 'phosphor-react'
 import { Link } from "react-router-dom";
-import { HeartIcon } from './HeartIcon';
-import { Map } from './Map'
+//import { HeartIcon } from './HeartIcon';
+//import { Map } from './Map'
 import { Map2 } from './Map2'
 import { StarRate } from './StarRate';
 import { useAuth } from "../contexts/auth";
-import { Loading } from './Loading';
 
 export function Card({
     id,
@@ -27,7 +25,7 @@ export function Card({
     description,
     filteredData
 }) {
-    const { urlBase, loading, loadingWait } = useAuth();
+    const { loadingWait } = useAuth();
     const [modal, setModal] = useState(false);
     const [caracteristicas, setCaracteristicas] = useState('');
 

@@ -54,7 +54,6 @@ export function UserBookings() {
                     (response) => {
                         setLoadingCat(true)
                         reserva()
-
                         toast.success("Reserva cancelada com sucesso!")
                     },
                     (error) => {
@@ -89,7 +88,6 @@ export function UserBookings() {
             {loadingCat &&
                 <>
                     {(reservas && reservas.length !== 0) ?
-
                         <section className="tableSection">
                             <table>
                                 <thead>
@@ -120,7 +118,6 @@ export function UserBookings() {
                             <p className="sadText">Sem reservas!</p>
                             <img src={confusedCat} />
                             <p className="text-normal"> <Link to={'/home'}>Clique aqui</Link> e comece agora fazendo uma reserva!</p>
-
                         </section>
                     }
                 </>

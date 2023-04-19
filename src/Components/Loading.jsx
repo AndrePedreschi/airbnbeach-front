@@ -1,7 +1,6 @@
 import './Loading.scss'
 import { RotatingLines } from 'react-loader-spinner'
 
-
 export function Loading({ loading = true}) {
 
     return (

@@ -169,7 +169,6 @@ export function SearchBar({ filteredData }) {
                 </div>
 
                 <section className="datepickerSection">
-
                     <label htmlFor="date" className="datepickerLabel">
                         <Calendar size={28} color="#545776" weight="fill" className='calendarIcon' />
                     </label>
@@ -186,10 +185,8 @@ export function SearchBar({ filteredData }) {
                         ref={litepickerRef}
                     />
                 </section>
-
                 <button className="btnSearchBar" type="submit"> Buscar </button>
             </form>
-
         </section>
     )
 }
