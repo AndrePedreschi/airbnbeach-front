@@ -1,0 +1,248 @@
+.searchBarStyle {
+    background-color: var(--coral-light);
+    //min-height: 5rem;
+    height: auto;
+    width: 100%;
+    padding: 1rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all .3s;
+
+    .searchTitle {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 2.25rem; //36px
+        line-height: 2.75rem; //44px
+        color: #ffffff;
+        text-align: center;
+    }
+
+    .formStyle {
+        display: flex;
+        align-items: center;
+        gap: 0.625rem;
+        justify-content: center;
+        flex-wrap: nowrap;
+        max-width: 81rem;
+        width: 100%;
+
+
+        .citySection {
+            display: flex;
+            align-items: center;
+            //justify-content: center;
+            width: 100%;
+            //height: 2.5rem;
+            width: 100%;
+
+            .mapIcon {
+                height: 1.7rem;
+                width: 1.7rem;
+                position: relative;
+                top: 0.1rem;
+                right: -1.75rem;
+                margin: 0;
+                padding: 0;
+                z-index: 100;
+                //cursor: pointer;
+                margin-left: -1.75rem;
+            }
+
+
+            .inputSearchStyle {
+                //height: 2.5rem !important;
+                width: 100%;
+                //padding-left: 2rem;
+                z-index: 0;
+                border-radius: 5px;
+                border: none;
+                outline: none;
+
+            }
+
+            .MuiAutocomplete-hasPopupIcon.css-l3ln04-MuiAutocomplete-root .MuiOutlinedInput-root,
+            .MuiAutocomplete-hasClearIcon.css-l3ln04-MuiAutocomplete-root .MuiOutlinedInput-root {
+                padding-right: 0;
+            }
+
+            .MuiOutlinedInput-root {
+                background-color: #ffffff;
+                padding: 1px;
+                padding-left: 1.5rem;
+                border-radius: 5px;
+            }
+
+            .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+                border: none;
+            }
+        }
+
+        .btnSearchBar {
+            max-width: 18rem;
+            width: 100%;
+            height: 2.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--green-light);
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+            color: var(--grey-light);
+            font-style: normal;
+            font-weight: 700;
+            font-size: 1rem; //16px
+            line-height: 1.25rem; //20px
+            cursor: pointer;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: var(--green-medium);
+            }
+        }
+
+        .datepickerSection {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+
+            .calendarIcon {
+                height: 1.7rem;
+                width: 1.7rem;
+                position: relative;
+                top: 0.1rem;
+                right: -1.75rem;
+                margin-left: -1.75rem;
+                padding: 0;
+                z-index: 100;
+                cursor: pointer;
+            }
+
+
+            .inputSearchStyle {
+                height: 2.5rem;
+                width: 100%;
+                //min-width: 20rem;
+                padding-left: 2rem;
+                z-index: 0;
+                border-radius: 5px;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 610px) {
+    .searchBarStyle {
+
+        .formStyle {
+            flex-direction: column;
+
+            .btnSearchBar {
+                max-width: none;
+            }
+        }
+    }
+}
+
+
+
+
+//datepicker
+.litepicker {
+    //left: calc(50% - 278px) !important;
+
+
+    .container__days {
+
+        .day-item.is-end-date {
+            background-color: var(--green-light);
+        }
+
+        .day-item.is-start-date {
+            background-color: var(--green-light);
+        }
+
+        .day-item.is-in-range {
+            background-color: #1dbeb450;
+        }
+    }
+
+    .container__footer {
+        justify-content: flex-end;
+
+        .button-apply {
+            width: 5rem;
+            height: 2rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--green-light);
+            box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
+            color: var(--grey-light);
+            font-style: normal;
+            font-weight: 700;
+            font-size: .875rem;
+            line-height: 1.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: var(--green-medium);
+            }
+        }
+
+        .button-cancel {
+            width: 5rem;
+            height: 2rem;
+            border: 1px solid var(--green-light) !important;
+            border-radius: 5px;
+            background-color: var(--grey-light);
+            box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
+            color: var(--grey-darker);
+            font-style: normal;
+            font-weight: 700;
+            font-size: .875rem;
+            line-height: 1.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: var(--grey-medium);
+            }
+        }
+    }
+}
+
+
+@media (max-width: 1000px) {
+    .litepicker {
+        left: calc(50% - 278px) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .litepicker {
+        left: calc(50% - 138px) !important;
+    }
+}
+
+@media (max-width: 610px) {
+    .searchBarStyle {
+        .formStyle {
+            flex-direction: column;
+
+            .btnSearchBar {
+                max-width: none;
+            }
+        }
+    }
+}
+
+
+/* @media (max-width: 560px) {
+    .litepicker {
+        left: calc(50% - 138px) !important;
+    }
+} */

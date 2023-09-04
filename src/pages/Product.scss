@@ -1,0 +1,94 @@
+.productContainer {
+    animation-duration: 0.5s;
+    transition-timing-function: ease-in;
+    animation-fill-mode: both;
+    animation-name: fadeIn;
+    transition: 5s;
+    background-color: var(--white-background);
+
+    .headerSection {
+        background-color: var(--coral-light);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2.5rem;
+        min-height: 3.75rem;
+        height: auto;
+        //height: 3.75rem;
+
+        .headerText {
+            margin: 0.5rem 0;
+            color: var(--grey-light);
+        }
+    }
+
+    .politicsSection {
+        height: auto;
+        padding: 1rem 2.5rem 5rem;
+
+        >h1 {
+            margin-bottom: 1rem;
+            color: var(--navy-light);
+        }
+
+        .politicDetails {
+
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-auto-rows: auto;
+            grid-column-gap: 0.5rem;
+            grid-row-gap: 1.5rem;
+
+            .politicsText {
+                padding-right: 3rem;
+                color: var(--navy-light);
+                background-color: #ffffff;
+                border-radius: 8px;
+                padding: 1rem;
+                box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
+
+                >h2 {
+                    margin-bottom: 0.75rem;
+                }
+
+                .detailText {
+                    margin: 0.5rem 0;
+                }
+            }
+
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .productContainer {
+        .politicsSection {
+            .politicDetails {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    }
+}
+
+@media (max-width: 450px) {
+    .productContainer {
+        .headerSection {
+            padding: 0 0.75rem;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            margin-bottom: 4px;
+
+            .headerText {
+                .title {
+                    letter-spacing: -1px;
+                }
+            }
+        }
+
+        .politicsSection {
+            padding: 1rem 1.5rem 5rem;
+            .politicDetails {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+}

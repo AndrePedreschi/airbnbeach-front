@@ -1,0 +1,367 @@
+.cardBodyStyle[type="category"] {
+    height: 15.5rem;
+    max-width: 19.5rem;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid var(--grey-medium);
+    border-radius: 10px;
+    box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    cursor: pointer;
+
+    
+
+    .thumbStyle {
+        display: flex;
+
+
+        .imgStyle {
+            height: 11.5rem;
+            width: 100%;
+            border-radius: 10px 10px 0 0;    
+        }
+    }
+
+    .textSection {
+        height: 100%;
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        //falta estilizar os textos
+        >h2 {
+            color: var(--navy-light);
+        }
+
+        >p {
+            color: var(--grey-darker);
+        }
+    }
+
+}
+
+.cardBodyStyle[type="recomendations"] {
+    display: flex;
+    gap: 0.875rem;
+    min-height: 17.75rem;
+    height: auto;
+    max-width: 39.75rem;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid var(--grey-medium);
+    border-radius: 10px;
+    box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.75);
+
+    
+    .mapModalContainer {
+        height: 100vh;
+        width: 100%;
+        background-color: #383b58ee;
+        position: fixed;
+        top: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+
+        animation-duration: 0.5s;
+        transition-timing-function: ease-in;
+        animation-fill-mode: both;
+        animation-name: fadeIn;
+
+        .closeIcon {
+            z-index: 1000;
+            margin-left: -32px;
+            position: relative;
+            top: -215px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .controle {
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            background-color: rgba(255, 255, 255, 0);
+            z-index: 0;
+            cursor: pointer;
+        }
+    }
+
+    .thumbStyle {
+        display: flex;
+        width: 300px;
+        .heartIconStyle {
+            margin: 2px 14px 0px -34px;
+            cursor: pointer;
+            height: fit-content;
+        }
+
+        .imgStyle {
+            margin-bottom: -1px;
+            margin-left: -1px;
+            min-height: 17.75rem;
+            max-height: 302px;
+            max-width: 20.5rem;
+            width: 300px;
+            border-radius: 10px;
+        }
+    }
+
+    .detailsStyle {
+        width: 100%;
+        padding: 0.75rem 0.75em 0.75rem 0.25rem;
+        display: flex;
+        gap: 0.5rem;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .section1 {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+
+            .titleStyle {
+
+                >h1 {
+                    letter-spacing: -2px;
+                }
+
+                .starsStyle {
+                    margin-bottom: 0.25rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    gap: 0.5rem;
+                    flex-wrap: wrap;
+
+                    >h4 {
+                        color: var(--navy-light);
+                    }
+
+                    .stars {
+                        display: flex;
+                        gap: 0.25rem;
+                    }
+
+                }
+
+                .title {
+                    color: var(--navy-light);
+                }
+
+            }
+
+            .gradesStyle {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+
+
+                .grade {
+                    width: 2rem;
+                    height: 1.75rem;
+                    padding-top: 0.25rem;
+                    background-color: var(--navy-light);
+                    color: var(--grey-light);
+                    text-align: center;
+                    border-radius: 10px;
+                }
+
+                .gradeText {
+                    font-weight: 700;
+                    font-size: 0.875rem; //14px
+                    line-height: 1rem; //16px
+                    text-align: end;
+                    color: var(--navy-light);
+                }
+            }
+        }
+
+        .section2 {
+            margin-bottom: 1.25rem;
+
+            .locationContainer {
+                margin-bottom: 0.25rem;
+                display: flex;
+                align-items: center;
+
+
+                .locationText {
+                    letter-spacing: -0.75px;
+                    //display: flex;
+                    //align-items: center;
+                    //justify-content: flex-start;
+                    //margin-bottom: 0.25rem;
+
+                    /* .linkStyle {
+                        text-decoration: none;
+                        color: var(--green-light);
+                        margin-left: 0.25rem;
+                        text-transform: uppercase;
+                    } */
+
+                }
+
+                .googleMapsImg {
+                    margin-top: -0.25rem;
+                    margin-left: 0.25rem;
+                    background-image: url('../assets/googleMaps.png');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    width: 20px;
+                    height: 20px;
+                    cursor: pointer;
+                }
+            }
+
+
+            .diferentialsStyle {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25rem;
+
+                .poolIcon {
+                    background-image: url('../assets/pool.svg');
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+
+        .section3 {
+            //display: flex;
+            //flex-direction: column;
+            height: 3.25rem;
+            width: 100%;
+
+            .textStyle {
+                color: var(--navy-light);
+
+                text-overflow: ellipsis;
+                overflow: hidden;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                white-space: normal;
+            }
+
+            .maisTexto {
+                margin-left: 0.25rem;
+                color: var(--green-light);
+            }
+        }
+
+        .btn {
+            height: 2.5rem;
+            max-width: 18.5rem;
+            width: 100%;
+            align-self: flex-end;
+            justify-self: end;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--green-light);
+            box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.12);
+            color: var(--grey-light);
+            cursor: pointer;
+
+            font-style: normal;
+            font-weight: 700;
+            font-size: 1rem; //16px
+            line-height: 1.25rem; //20px
+
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: var(--green-medium);
+            }
+        }
+    }
+
+}
+
+@media (max-width: 768px) {
+    .cardBodyStyle[type="category"] {
+        height: 15.5rem;
+        max-width: 20.75rem;
+        //max-width: 17.5rem;
+
+        .thumbStyle {
+            .imgStyle {
+                min-height: 11.5rem;
+                max-width: 20.75rem;
+                //max-width: 20.75rem;
+            }
+        }
+    }
+
+    .cardBodyStyle[type="recomendations"] {
+        min-height: 17.5rem;
+        max-width: 44.5rem;
+
+        .thumbStyle {
+            .imgStyle {
+                max-width: 21.5rem;
+            }
+        }
+
+        .detailsStyle {
+            .btn {
+                max-width: 20.75rem;
+                align-self: center;
+            }
+        }
+    }
+}
+
+
+@media (max-width: 605px) {
+    .cardBodyStyle[type="category"] {
+        max-height: 17.25rem;
+        height: auto;
+        max-width: 24.75rem;
+        width: 100%;
+
+        .thumbStyle {
+
+            .imgStyle {
+                //height: 6.875rem;
+                //height: auto;
+                max-width: 24.75rem;
+            }
+        }
+    }
+
+    .cardBodyStyle[type="recomendations"] {
+        max-width: 24.75rem;
+        flex-direction: column;
+
+        .thumbStyle {
+            width: 100%;
+            .imgStyle {
+                object-fit: cover;
+                max-height: 14.5rem;
+                max-width: 24.75rem;
+                width: 101%;
+            }
+        }
+
+
+        .detailsStyle {
+            padding: 0rem 0.5em 0.5rem 0.5rem;
+
+            .btn {
+                max-width: 23.5rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+.item {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: fit-content;
+  height: fit-content;
+  margin-bottom: 5px;
+  padding: 0 8px;
+  border: 1px solid rgba(128, 128, 128, 0.521);
+  border-radius: 5px;
+  user-select: none;
+  background-color: white;
+  font-family: "Roboto", sans-serif;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+
+  .poolIcon {
+    background-image: url('../../assets/pool.svg');
+    width: 20px;
+    height: 20px;
+  }
+}

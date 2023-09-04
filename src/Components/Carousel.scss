@@ -1,0 +1,176 @@
+.carouselSection {
+    width: 39.875rem;
+    height: 29.75rem;
+    background-color: #ebebeb;
+    border-radius: 8px;
+    
+
+    .carousel {
+        height: 22.75rem;
+        border-radius: 8px 8px 0 0;
+        z-index: 0;
+
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            border-radius: 50%;
+            background-color: #1DBEB4;
+            width: 2.25rem;
+            height: 2.25rem;
+            margin-top: -2.25rem;
+
+            &::after {
+                font-size: 1.125rem;
+                font-weight: 900;
+            }
+        }
+
+        .swiper-pagination {
+            font-weight: 700;
+            color: #383B58;
+            background-color: #ebebeb;
+        }
+
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            border-radius: 8px 8px 0 0;
+
+            >img {
+                display: block;
+                width: 100%;
+                height: 20.25rem;
+                object-fit: cover;
+                border-radius: 8px 8px 0 0;
+            }
+
+
+        }
+    }
+
+    .thumbs {
+        border-radius: 0 0 8px 8px;
+        padding: 10px;
+
+
+        .swiper-slide {
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
+
+            >img {
+                display: block;
+                width: 100%;
+                height: 5.75rem;
+                object-fit: cover;
+                border-radius: 8px;
+                cursor: pointer;
+
+                &:active {
+                    cursor: grabbing;
+                }
+            }
+        }
+
+        .swiper-slide-thumb-active {
+            opacity: 1;
+        }
+
+
+    }
+}
+
+@media (max-width: 768px) {
+
+    .carouselSection {
+        border-radius: 0;
+        height: 25rem;
+        width: 100%;
+
+        .carousel {
+            height: 25rem;
+            border-radius: 0;
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                border-radius: 50%;
+                background-color: #1DBEB4;
+                width: 1.75rem;
+                height: 1.75rem;
+                margin-top: -1.75rem;
+
+                &::after {
+                    font-size: 0.7rem;
+                    font-weight: 900;
+                }
+            }
+
+            .swiper-pagination {
+                color: #ffffff;
+                text-align: end;
+                background-color: #ebebeb00;
+                padding-right: 15px;
+            }
+
+            .swiper-slide {
+                border-radius: 0;
+
+                >img {
+                    height: 25rem;
+                    border-radius: 0;
+                }
+            }
+        }
+
+        .thumbs {
+            display: none;
+        }
+    }
+
+
+}
+
+@media (max-width: 414px) {
+
+    .carouselSection {
+        border-radius: 0;
+        height: 14.75rem;
+        width: 100%;
+
+        .carousel {
+            height: 14.75rem;
+            border-radius: 0;
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                border-radius: 50%;
+                background-color: #1DBEB4;
+                width: 1.25rem;
+                height: 1.25rem;
+                margin-top: -1rem;
+            }
+
+            .swiper-pagination {
+                padding-right: 15px;
+            }
+
+
+            .swiper-slide {
+                border-radius: 0;
+
+                >img {
+                    height: 25rem;
+                    border-radius: 0;
+                }
+            }
+        }
+
+        .thumbs {
+            display: none;
+        }
+    }
+}

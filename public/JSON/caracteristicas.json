@@ -1,0 +1,58 @@
+[
+  {
+      "nome":"Wi-Fi",
+      "icone":"wi-fi",
+      "produtos":[
+          
+      ]
+  },
+  {
+      "nome":"Piscina",
+      "icone":"pool",
+      "produtos":[
+          
+      ]
+  },
+  {
+      "nome":"Pets",
+      "icone":"pets",
+      "produtos":[
+          
+      ]
+  },
+  {
+      "nome":"TV",
+      "icone":"tv",
+      "produtos":[
+          
+      ]
+  },
+  {
+      "nome":"Cozinha",
+      "icone":"kitchen",
+      "produtos":[
+          
+      ]
+  },
+  {
+      "nome":"Estacionamento",
+      "icone":"parking",
+      "produtos":[
+          
+      ]
+  },
+  {
+      "nome":"Jacuzzi",
+      "icone":"jacuzzi",
+      "produtos":[
+          
+      ]
+  },
+  {
+      "nome":"Ar-condicionado",
+      "icone":"air-conditioning",
+      "produtos":[
+          
+      ]
+  }
+]

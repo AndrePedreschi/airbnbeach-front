@@ -1,0 +1,117 @@
+.userBookingsSection {
+    width: 100%;
+    height: calc(100vh - 8.5rem);
+    display: flex;
+    flex-direction: column;
+    //justify-content: center;
+    //align-items: flex-start;
+
+    //padding-top: 2rem;
+    //overflow-x: visible;
+
+
+
+    .headerSection {
+        background-color: var(--coral-light);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2.5rem;
+        height: 3.75rem;
+        width: 100%;
+
+        .headerText {
+            color: var(--grey-light);
+        }
+    }
+
+    .tableSection {
+        width: 100%;
+        overflow: auto;
+
+
+
+        table {
+            margin: 2rem auto;
+            max-width: 80%;
+            border-collapse: collapse;
+
+
+            tr {
+
+                th {
+                    border-right: 1px solid #ddd;
+                    border-bottom: 1px solid #ddd;
+                    padding: 0.5rem;
+                    text-align: center;
+                    background-color: var(--green-light);
+                    color: white;
+
+                    &:nth-child(1) {
+                        border-top-left-radius: 8px;
+                    }
+
+                    &:nth-child(5) {
+                        border-top-right-radius: 8px;
+                    }
+                }
+
+
+                td {
+                    border: 1px solid #ddd;
+                    padding: 0.5rem;
+                    color: var(--coral-light);
+
+                }
+
+                .horasStyle {
+                    text-align: center;
+                }
+
+                .nomeProduto {
+                    text-decoration: none;
+                    color: var(--coral-light);
+                }
+
+                .lixeira {
+                    text-align: center;
+
+                    .lixeiraIcone {
+                        cursor: pointer;
+                    }
+                }
+
+                &:nth-child(even) {
+                    background-color: #f2f2f2;
+                }
+
+                &:hover {
+                    background-color: #ddd;
+                }
+            }
+        }
+    }
+
+    .noBookingsSection {
+        width: 100%;
+        height: calc(100vh - 8.5rem);
+        display: flex;
+        gap: 2rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: var(--coral-light);
+
+        .sadText {
+
+            font-style: oblique;
+            font-weight: 500;
+            font-size: 1.5rem; //24px
+            line-height: 1.75rem; //28px
+        }
+
+        .reservaIcon {
+            width: 100px;
+        }
+    }
+}
